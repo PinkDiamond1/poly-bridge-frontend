@@ -6,7 +6,7 @@ export default {
   ...element,
   common: {
     header: {
-      brandName: 'PolyBridge',
+      brandName: 'GhostMarket Bridge',
     },
     wallets: {
       connectWallet: 'Connect Wallet',
@@ -26,7 +26,7 @@ export default {
       connectWallet: 'Connect {walletName}',
     },
     footer: {
-      copyright: '© 2021 Polynetwork. All rights reserved.',
+      copyright: '© 2021 GhostMarket. All rights reserved.',
     },
   },
   home: {

@@ -1,32 +1,29 @@
 <template>
   <div class="footer">
     <div class="top">
-      <!-- <CLink href="https://github.com/polynetwork" target="_blank">
+      <CLink href="https://github.com/onblockio" target="_blank">
         <img src="@/assets/svg/github.svg" />
       </CLink>
-      <CLink href="https://discord.com/invite/y6MuEnq" target="_blank">
+      <CLink href="https://discord.gg/THHTS4F" target="_blank">
         <img src="@/assets/svg/discord.svg" />
       </CLink>
-      <CLink href="https://t.me/joinchat/Hjv5NBrfO1C2LyODQfxVDw" target="_blank">
+      <CLink href="https://t.me/ghostmarketio" target="_blank">
         <img src="@/assets/svg/telegram.svg" />
       </CLink>
-      <CLink href="https://www.youtube.com/channel/UC4vFRyVgvK7RnlkkLDmp23w" target="_blank">
-        <img src="@/assets/svg/youtube.svg" />
-      </CLink>
-      <CLink href="mailto:contact@poly.network" target="_blank">
+      <CLink href="mailto:hello@pghostmarket.io" target="_blank">
         <img src="@/assets/svg/email.svg" />
       </CLink>
-      <CLink href="https://twitter.com/PolyNetwork2" target="_blank">
+      <CLink href="https://twitter.com/ghostmarketio" target="_blank">
         <img src="@/assets/svg/twitter.svg" />
       </CLink>
-      <CLink href="https://medium.com/@polynetwork" target="_blank">
+      <CLink href="https://medium.com/@ghostmarket" target="_blank">
         <img src="@/assets/svg/medium.svg" />
-      </CLink> -->
+      </CLink>
     </div>
     <div class="bottom">
-      <!-- <div class="copyright">
+      <div class="copyright">
         {{ $t('common.footer.copyright') }}
-      </div> -->
+      </div>
       <!-- <CButton class="change-locale" @click="changeLocale">
       <span v-if="$i18n.locale === 'en'">English</span>
       <span v-if="$i18n.locale === 'zh-cn'">中文</span>
