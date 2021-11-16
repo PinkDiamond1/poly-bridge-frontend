@@ -5,7 +5,7 @@
       <img class="bottom-decoration" src="@/assets/svg/poly-bg.svg" />
     </div>
     <div class="content">
-      <div class="slogan" v-html="$t('home.index.slogon')" />
+      <!-- <div class="slogan" v-html="$t('home.index.slogon')" /> -->
       <Form />
     </div>
   </Page>

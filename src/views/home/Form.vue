@@ -213,10 +213,10 @@
       </CSubmitButton>
     </div>
 
-    <div class="history">
+    <!-- <div class="history">
       {{ $t('home.form.historyPrefix') }}
       <CLink class="link" :to="{ name: 'transactions' }">{{ $t('home.form.historyLink') }}</CLink>
-    </div>
+    </div> -->
 
     <SelectTokenBasic
       :visible.sync="selectTokenBasicVisible"
