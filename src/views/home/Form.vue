@@ -693,6 +693,7 @@ export default {
   font-weight: 500px;
   font-size: 20px;
   text-align: center;
+  color: white;
   @include next-margin-v(30px);
 }
 
@@ -715,6 +716,7 @@ export default {
   opacity: 0.6;
   font-weight: 500;
   font-size: 12px;
+  color: white;
 }
 
 .value {
@@ -739,6 +741,7 @@ export default {
 
 .select-token-basic-name {
   font-size: 14px;
+  color: white;
 }
 
 .select-chain {
@@ -765,6 +768,7 @@ export default {
   font-size: 14px;
   white-space: pre-line;
   text-align: left;
+  color: #fff;
 }
 
 .address {

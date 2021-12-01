@@ -30,17 +30,17 @@ export default {
 
 <style lang="scss">
 @include block(c-link) {
-  color: inherit;
+  // color: inherit;
   text-decoration: none;
   transition: all 0.3s;
   cursor: pointer;
 
   &:hover {
-    filter: brightness(0.8);
+    // filter: brightness(0.8);
   }
 
   &[disabled] {
-    filter: brightness(0.6);
+    // filter: brightness(0.6);
     cursor: not-allowed;
   }
 }

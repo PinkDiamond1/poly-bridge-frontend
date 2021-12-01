@@ -1,10 +1,11 @@
 <template>
-  <div class="networks">
-    <CLink :href="mainnet ? 'https://bridge.ghostmarket.io/testnet' : 'https://bridge.ghostmarket.io'"
-           target="_self">
-      {{ mainnet ? $t('common.networks.mainnet') : $t('common.networks.testnet') }}
-    </CLink>
-  </div>
+  <CLink
+    class="item"
+    :href="mainnet ? 'https://bridge.poly.network/testnet' : 'https://bridge.poly.network'"
+    target="_self"
+  >
+    {{ mainnet ? $t('common.networks.mainnet') : $t('common.networks.testnet') }}
+  </CLink>
 </template>
 
 <script>
@@ -12,7 +13,7 @@ import { TARGET_MAINNET } from '@/utils/env';
 
 export default {
   name: 'Networks',
-  data () {
+  data() {
     return {
       mainnet: TARGET_MAINNET,
     };

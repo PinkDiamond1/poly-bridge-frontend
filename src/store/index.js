@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import site from './site';
 import chains from './chains';
 import wallets from './wallets';
 import tokenBasics from './tokenBasics';
@@ -16,6 +17,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
+    site,
     chains,
     wallets,
     tokenBasics,

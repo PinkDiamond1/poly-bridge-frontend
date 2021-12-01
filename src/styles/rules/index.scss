@@ -2,8 +2,11 @@
 @import './animations.scss';
 @import './transitions.scss';
 
+// Poppins font imoprt from google fonts
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 html {
-  --color-primary: #2fd8ca;
+  --color-primary: #17b0e8;
 
   --color-text-primary: #ffffff;
   --color-text-primary-inverse: #091225;
@@ -14,9 +17,47 @@ html {
   --background-image: linear-gradient(327deg, #{rgba(#3ec7eb, 0.5)} 0, #{rgba(#3ec7eb, 0)} 100%);
 }
 
+.page {
+    min-width: 0px !important;
+}
+
+#app {
+    width: 100% !important;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+// dark theme vars
+[theme="dark"] {
+    --background-color-base: black;
+    --color-text-primary: #ffffff;
+    --color-text-primary-inverse: #091225;
+    --header-bg-color: #1a1a1a;
+    --color-line-base: #fff;
+}
+
+// light theme vars
+[theme="light"] {
+    --background-color-base: white;
+    --color-text-primary: black;
+    --color-text-primary-inverse: #fff;
+    --header-bg-color: #f9f9f9;
+    --color-line-base: #1a1a1a;
+}
+
+.connect-wallet-button {
+    border: 2px solid var(--color-primary) !important;
+    margin: 0px 2px !important;
+    @media (max-width: 900px) {
+        padding: 8px 10px !important;
+    }
+}
+
 body {
-  background: var(--background-color-base);
+  background-color: var(--background-color-base);
+  // background: var(--background-color-base);
   color: var(--color-text-primary);
-  font-family: 'Avenir', 'PingFang SC', 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial,
-    sans-serif;
+  font-family: 'Poppins';
+  //font-family: 'Avenir', 'PingFang SC', 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial,
+   // sans-serif;
 }

@@ -1,5 +1,8 @@
 @import '~element-ui/packages/theme-chalk/src/index.scss';
 
+.home {
+    min-width: 0px !important;
+}
 .v-modal {
   backdrop-filter: blur(10px);
   opacity: 1;

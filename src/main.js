@@ -3,6 +3,7 @@ import ElementUi from 'element-ui';
 import Vue from 'vue';
 import VueBemCn from 'vue-bem-cn';
 import VueMQ from 'vue-mq';
+import { Icon } from '@iconify/vue2';
 
 import './styles/rules/index.scss'; // import before custom components
 import App from './App';
@@ -29,6 +30,8 @@ Vue.use(VueMQ, {
 Vue.use(VueBemCn, { hyphenate: true });
 
 Vue.use(components);
+
+Vue.component('Icon', Icon);
 
 Vue.use(utils);
 
