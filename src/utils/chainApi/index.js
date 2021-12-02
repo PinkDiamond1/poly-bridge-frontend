@@ -14,6 +14,8 @@ const APIS = {
   [ChainId.Arbitrum]: () => import('./eth'),
   [ChainId.xDai]: () => import('./eth'),
   [ChainId.Optimistic]: () => import('./eth'),
+  [ChainId.Fantom]: () => import('./eth'),
+  [ChainId.Avalanche]: () => import('./eth'),
 };
 
 export async function getChainApi(chainId) {

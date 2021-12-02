@@ -168,6 +168,10 @@ async function approve() {
   throw new Error('Method not implemented');
 }
 
+function hex2base64(hex) {
+  return Buffer.from(hex, 'hex').toString('base64');
+}
+
 async function lock({
   fromChainId,
   fromAddress,
@@ -183,13 +187,16 @@ async function lock({
       chainId: fromChainId,
       tokenHash: fromTokenHash,
     });
-
     const toChainApi = await getChainApi(toChainId);
     const fromChainApi = await getChainApi(fromChainId);
     const fromAddressHash = await fromChainApi.addressToHash(fromAddress);
     const toAddressHex = toChainApi.addressToHex(toAddress);
-    const amountInt = decimalToInteger(amount, tokenBasic.decimals);
-    const feeInt = decimalToInteger(fee, tokenBasic.decimals);
+    const toAddressBase64 = hex2base64(toAddressHex);
+    const fromToken = tokenBasic.tokens.find((item, index) => {
+      return item.chainId === fromChainId;
+    });
+    const amountInt = decimalToInteger(amount, fromToken.decimals);
+    const feeInt = decimalToInteger(fee, 8);
 
     const params = {
       scriptHash: chain.lockContractHash,
@@ -198,9 +205,9 @@ async function lock({
         { type: 'Hash160', value: fromTokenHash },
         { type: 'Address', value: fromAddress },
         { type: 'Integer', value: toChainId },
-        { type: 'ByteArray', value: toAddressHex },
-        { type: 'Integer', value: 1 },
-        { type: 'Integer', value: 0 },
+        { type: 'ByteArray', value: toAddressBase64 },
+        { type: 'Integer', value: amountInt },
+        { type: 'Integer', value: feeInt },
         { type: 'Integer', value: 0 },
       ],
       broadcastOverride: false,

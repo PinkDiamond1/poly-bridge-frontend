@@ -155,6 +155,8 @@ export default {
       [ChainId.Palette]: 'Palette',
       [ChainId.Arbitrum]: 'Arbitrum',
       [ChainId.Optimistic]: 'Optimistic',
+      [ChainId.Fantom]: 'Fantom',
+      [ChainId.Avalanche]: 'Avalanche',
     },
     chainNetworkName: {
       [ChainId.Poly]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
@@ -169,6 +171,8 @@ export default {
       [ChainId.Heco]: TARGET_MAINNET ? 'Heco MainNet' : 'Heco TestNet',
       [ChainId.Ok]: TARGET_MAINNET ? 'OKExChain MainNet' : 'OKExChain TestNet',
       [ChainId.Ont]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
+      [ChainId.Fantom]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
+      [ChainId.Avalanche]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
     },
     transactionStatus: {
       [TransactionStatus.Finished]: 'Finished',

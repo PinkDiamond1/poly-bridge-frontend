@@ -39,6 +39,7 @@ export const tokenBasic = model({
         chainId: alias('ChainId'),
         name: alias('Name'),
         tokenBasicName: alias('TokenBasicName'),
+        decimals: alias('Precision'),
       }),
     ),
   ),

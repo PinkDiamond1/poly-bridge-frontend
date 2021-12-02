@@ -17,13 +17,16 @@
               min-width="150"
             >
               <div class="chain">
-                <img class="chain-icon" :src="getChain(row.fromChainId).icon" />
+                <img
+                  class="chain-icon"
+                  :src="getChain(row.fromChainId) ? getChain(row.fromChainId).icon : ''"
+                />
                 <span>{{ $formatEnum(row.fromChainId, { type: 'chainName' }) }}</span>
               </div>
               <CLink
                 class="hash"
                 :href="
-                  $format(getChain(row.fromChainId).explorerUrl, {
+                  $format(getChain(row.fromChainId) ? getChain(row.fromChainId).explorerUrl : '', {
                     txHash: row.fromTransactionHash,
                   })
                 "
@@ -43,13 +46,18 @@
               min-width="150"
             >
               <div class="chain">
-                <img class="chain-icon" :src="getChain(row.toChainId).icon" />
+                <img
+                  class="chain-icon"
+                  :src="getChain(row.toChainId) ? getChain(row.toChainId).icon : ''"
+                />
                 <span>{{ $formatEnum(row.toChainId, { type: 'chainName' }) }}</span>
               </div>
               <CLink
                 class="hash"
                 :href="
-                  $format(getChain(row.toChainId).explorerUrl, { txHash: row.toTransactionHash })
+                  $format(getChain(row.toChainId) ? getChain(row.toChainId).explorerUrl : '', {
+                    txHash: row.toTransactionHash,
+                  })
                 "
                 target="_blank"
                 :disabled="!row.toTransactionHash"

@@ -128,11 +128,39 @@ export default {
 .content {
   display: flex;
   min-width: 310px;
+  max-height: calc(100vh - 100px);
 }
 
 .chains {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+}
+.chains::-webkit-scrollbar-track-piece {
+  //滚动条凹槽的颜色，还可以设置边框属性
+
+  background-color: rgba(37, 37, 48, 0.8);
+}
+
+.chains::-webkit-scrollbar {
+  //滚动条的宽度
+
+  width: 2px;
+
+  height: 9px;
+}
+
+.chains::-webkit-scrollbar-thumb {
+  //滚动条的设置
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  background-clip: padding-box;
+
+  min-height: 28px;
+}
+.chains::-webkit-scrollbar-thumb:hover {
+  background-color: (0, 0, 0, 0.8);
 }
 
 .chain {
