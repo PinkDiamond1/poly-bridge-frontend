@@ -1,23 +1,23 @@
 <template>
   <div class="menu">
     <Wallets />
-    <CLink @click="goAudit" class="item" target="_self">
+    <!--<CLink @click="goAudit" class="item" target="_self">
       {{ $t('common.menu.audit') }}
-    </CLink>
-    <CLink
+    </CLink>-->
+    <!--<CLink
       :to="{ name: 'home' }"
       :class="$route.name == 'home' ? 'active item' : 'item'"
       target="_self"
     >
       {{ $t('common.menu.token') }}
-    </CLink>
-    <CLink
+    </CLink>-->
+    <!--<CLink
       :to="{ name: 'nft' }"
       :class="$route.name == 'nft' ? 'active item' : 'item'"
       target="_self"
     >
       {{ $t('common.menu.nft') }}
-    </CLink>
+    </CLink>-->
     <Networks />
     <ToggleTheme />
   </div>
