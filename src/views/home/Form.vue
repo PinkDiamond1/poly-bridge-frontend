@@ -18,7 +18,7 @@
       <div class="fields">
         <div class="field">
           <div class="label">{{ $t('home.form.asset') }}</div>
-          <CButton class="select-token-basic" @click="selectTokenBasicVisible = true">
+          <CButton class="select-token-basic" @click="selectTokenBasicVisible = true" disabled>
             <template v-if="tokenBasic">
               <img class="select-token-basic-icon" :src="tokenBasic.meta" />
               <span class="select-token-basic-name">{{ tokenBasicName }}</span>
