@@ -16,7 +16,7 @@
       <CLink href="https://twitter.com/ghostmarketio" target="_blank">
         <img src="@/assets/svg/twitter.svg" />
       </CLink>
-      <CLink href="https://medium.com/@ghostmarket" target="_blank">
+      <CLink href="https://medium.com/ghostmarket" target="_blank">
         <img src="@/assets/svg/medium.svg" />
       </CLink>
     </div>

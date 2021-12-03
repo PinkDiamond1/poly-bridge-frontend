@@ -18,7 +18,7 @@
     >
       {{ $t('common.menu.nft') }}
     </CLink>-->
-    <Networks />
+    <!--<Networks />-->
     <ToggleTheme />
   </div>
 </template>

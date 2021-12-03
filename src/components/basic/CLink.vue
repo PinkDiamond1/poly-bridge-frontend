@@ -34,6 +34,10 @@ export default {
   text-decoration: none;
   transition: all 0.3s;
   cursor: pointer;
+  img {
+    height: 36px;
+    width: 36px;
+  }
 
   &:hover {
     // filter: brightness(0.8);

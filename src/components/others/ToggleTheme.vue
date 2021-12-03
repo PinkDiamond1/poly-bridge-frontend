@@ -28,10 +28,13 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 5px 8px;
+  padding: 3px 5px;
   margin-left: 10px;
   border: 2px solid var(--color-line-base);
   border-radius: 7px;
+  &:hover {
+    filter: brightness(0.6);
+  }
 }
 .toggle_theme_icon {
   font-size: 25px;

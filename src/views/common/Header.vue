@@ -2,10 +2,21 @@
   <div class="header__wrapper">
     <div class="header">
       <CLink class="brand" :to="{ name: 'home' }">
-        <img class="brand-logo" src="@/assets/svg/logo.svg" />
-        <span class="brand-name">
+        <img
+          v-if="darkMode"
+          class="brand-logo"
+          src="https://ghostmarket.io/brand/dark-logo-oneline.svg"
+          style="width:250px"
+        />
+        <img
+          v-else
+          class="brand-logo"
+          src="https://ghostmarket.io/brand/light-logo-oneline.svg"
+          style="width:250px"
+        />
+        <!--<span class="brand-name">
           {{ $t('common.header.brandName') }}
-        </span>
+        </span>-->
       </CLink>
       <CFlexSpan />
 
@@ -62,7 +73,7 @@ export default {
   max-width: 1280px;
   display: flex;
   align-items: center;
-  height: 80px;
+  height: 60px;
   // padding: 0 50px;
   // @include child-margin-h(20px);
 }

@@ -371,7 +371,7 @@ export const TOKEN_BASIC_ICONS = {
   '8PAY': require('@/assets/jpg/8pay.jpg'),
 };
 
-export const DEFAULT_TOKEN_BASIC_NAME = 'USDT';
-export const DEFAULT_CHAIN_NAME = 'ETH';
+export const DEFAULT_TOKEN_BASIC_NAME = 'GM';
+export const DEFAULT_CHAIN_NAME = 'BSC';
 
 export const TOP_TOKEN_BASIC_NAMES = ['NEO', 'nNEO', 'ETH', 'USDT', 'USDC', 'DAI'];
