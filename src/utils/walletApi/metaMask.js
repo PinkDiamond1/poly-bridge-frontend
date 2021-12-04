@@ -14,14 +14,14 @@ const PLT_NFT_FEE_TOKEN_HASH = '0x0000000000000000000000000000000000000103';
 const NETWORK_CHAIN_ID_MAPS = {
   [TARGET_MAINNET ? 1 : 3]: ChainId.Eth,
   [TARGET_MAINNET ? 56 : 97]: ChainId.Bsc,
-  [TARGET_MAINNET ? 128 : 256]: ChainId.Heco,
-  [TARGET_MAINNET ? 66 : 65]: ChainId.Ok,
-  [TARGET_MAINNET ? 100 : 77]: ChainId.xDai,
+  // [TARGET_MAINNET ? 128 : 256]: ChainId.Heco,
+  // [TARGET_MAINNET ? 66 : 65]: ChainId.Ok,
+  // [TARGET_MAINNET ? 100 : 77]: ChainId.xDai,
   [TARGET_MAINNET ? 137 : 80001]: ChainId.Polygon,
-  [TARGET_MAINNET ? 1718 : 101]: ChainId.Palette,
-  [TARGET_MAINNET ? 42161 : 421611]: ChainId.Arbitrum,
-  [TARGET_MAINNET ? 10 : 69]: ChainId.Optimistic,
-  [TARGET_MAINNET ? 250 : 4002]: ChainId.Fantom,
+  // [TARGET_MAINNET ? 1718 : 101]: ChainId.Palette,
+  // [TARGET_MAINNET ? 42161 : 421611]: ChainId.Arbitrum,
+  // [TARGET_MAINNET ? 10 : 69]: ChainId.Optimistic,
+  // [TARGET_MAINNET ? 250 : 4002]: ChainId.Fantom,
   [TARGET_MAINNET ? 43114 : 43113]: ChainId.Avalanche,
 };
 

@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     chains() {
-      return this.$store.getters.chains.filter(chain => chain.id !== ChainId.Poly);
+      return this.$store.getters.chains.filter(chain => chain.id !== ChainId.Poly && chain.id >= 0);
     },
     nftChains() {
       return this.$store.getters.chains.filter(
