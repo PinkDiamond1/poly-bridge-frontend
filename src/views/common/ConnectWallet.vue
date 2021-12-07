@@ -257,5 +257,10 @@ export default {
       transform: translate(-20px, -20px);
     }
   }
+  [theme='light'] .header-mobile {
+    &-close {
+      filter: invert(1);
+    }
+  }
 }
 </style>

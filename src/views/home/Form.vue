@@ -652,10 +652,13 @@ export default {
   transition: all ease 0.3s;
 }
 .tooltip-icon {
-  background: var(--color-primary);
+  filter: invert(100%);
   border-radius: 4px;
   padding: 1px;
   vertical-align: middle !important;
+}
+[theme='dark'] .tooltip-icon {
+  filter: invert(0%);
 }
 </style>
 <style lang="scss" scoped>
