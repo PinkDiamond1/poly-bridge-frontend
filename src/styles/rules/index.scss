@@ -30,6 +30,7 @@ html {
 
 // dark theme vars
 [theme="dark"] {
+    --background-color-base-hover: rgb(255,255,255, 0.3);
     --background-color-base: black;
     --color-text-primary: #ffffff;
     --color-text-primary-inverse: #091225;
@@ -39,6 +40,7 @@ html {
 
 // light theme vars
 [theme="light"] {
+    --background-color-base-hover: rgb(0,0,0, 0.3);
     --background-color-base: white;
     --color-text-primary: black;
     --color-text-primary-inverse: #fff;
