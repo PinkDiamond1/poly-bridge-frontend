@@ -35,7 +35,7 @@ export default {
         'To\nbuild the next generation\nInternet infrastructure,\nrealize interoperability\nbetween\nmultiple <em>chains</em>',
     },
     form: {
-      title: 'Bridge',
+      title: 'GhostMarket Token Bridge',
       asset: 'Asset',
       from: 'From',
       to: 'To',
@@ -48,9 +48,9 @@ export default {
       o3ToolTip: 'Available Balance',
       feeTooltip: 'Transaction fee on target chain',
       timeTooltip:
-        'An estimation of how long funds will arrive in the destination address based on overall transfer history.',
+        'An estimation of how long until funds arrive in the destination address based on overall transfer history.',
       connectWallet: 'Connect Wallet',
-      historyPrefix: 'You can view your',
+      historyPrefix: 'View your',
       historyLink: 'history',
       approveInfinitytip:
         'After checking, approve the infinite token usage, this behavior may be risky, please judge according to the actual situation',
@@ -95,7 +95,7 @@ export default {
   },
   transactions: {
     index: {
-      title: 'The historical records',
+      title: 'Historical Records',
       fromChain: 'Source Chain',
       toChain: 'Destination Chain',
       hash: 'Hash: {hash}',
@@ -108,16 +108,15 @@ export default {
     },
     details: {
       title: 'Transaction Details',
-      waiting:
-        'The transaction is waiting to be processed on the {chainName}. Please be patient...',
-      pending: 'The transaction is proceeding on the {chainName}. Please be patient...',
-      succeeded: 'The transaction has succeeded on the {chainName}.',
-      failed: 'The transaction is failed on the {chainName}.',
-      confirmation: '{blocks}/{needBlocks} Confirm',
+      waiting: 'The transaction is being processed on {chainName}. Please be patient...',
+      pending: 'The transaction is proceeding on {chainName}. Please be patient...',
+      succeeded: 'The transaction has succeeded on {chainName}.',
+      failed: 'The transaction has failed on {chainName}.',
+      confirmation: '{blocks}/{needBlocks} confirmations',
       hash: 'Hash: {hash}',
       failedTitle: 'Failed',
       finishedTitle: 'Finished',
-      gotoHistory: 'Goto History',
+      gotoHistory: 'Go to History',
     },
   },
   buttons: {
@@ -193,12 +192,12 @@ export default {
       USER_REJECTED: 'Request is rejected by user.',
       MALFORMED_INPUT: 'Malformed input.',
       INSUFFICIENT_FUNDS: 'Insufficient funds.',
-      COMMUNICATE_FAILED: 'Communicate failed with wallet.',
+      COMMUNICATE_FAILED: 'Communication failed with wallet.',
     },
     chain: {
       UNKNOWN_ERROR: 'Unknown chain error.',
       NOT_SUPPORTED: 'Chain is not supported.',
-      COMMUNICATE_FAILED: 'Communicate failed with RPC.',
+      COMMUNICATE_FAILED: 'Communication failed with RPC.',
     },
     http: {
       UNKNOWN_ERROR: 'Unknown request error.',
