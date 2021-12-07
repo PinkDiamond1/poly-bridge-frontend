@@ -230,8 +230,12 @@ export default {
 .table-wrapper {
   padding: 12px 0 24px;
   border-radius: 20px;
-  background: #182233;
+  background: var(--background-color-base);
   @include child-margin-v(24px);
+  box-shadow: 0px 2px 18px 7px rgb(0 0 0 / 10%);
+}
+[theme='dark'] .table-wrapper {
+  background: #1a1a1a;
 }
 
 .chain {
