@@ -1,22 +1,22 @@
 <template>
   <div class="footer">
     <div class="top">
-      <CLink href="https://github.com/onblockio" target="_blank">
+      <CLink href="https://github.com/onblockio" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/github.svg" />
       </CLink>
-      <CLink href="https://discord.gg/THHTS4F" target="_blank">
+      <CLink href="https://discord.gg/THHTS4F" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/discord.svg" />
       </CLink>
-      <CLink href="https://t.me/ghostmarketio" target="_blank">
+      <CLink href="https://t.me/ghostmarketio" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/telegram.svg" />
       </CLink>
-      <CLink href="mailto:hello@pghostmarket.io" target="_blank">
+      <CLink href="mailto:hello@pghostmarket.io" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/email.svg" />
       </CLink>
-      <CLink href="https://twitter.com/ghostmarketio" target="_blank">
+      <CLink href="https://twitter.com/ghostmarketio" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/twitter.svg" />
       </CLink>
-      <CLink href="https://medium.com/ghostmarket" target="_blank">
+      <CLink href="https://medium.com/ghostmarket" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/medium.svg" />
       </CLink>
     </div>
@@ -49,26 +49,22 @@ export default {
   padding: 40px;
   @include child-margin-v(20px);
 }
-
 .top {
   display: flex;
   justify-content: center;
   align-items: center;
   @include child-margin-h(12px);
 }
-
 .bottom {
   display: flex;
   justify-content: center;
   align-items: center;
   @include child-margin-h(30px);
 }
-
 .copyright {
   opacity: 0.4;
   font-size: 14px;
 }
-
 .change-locale {
   height: 30px;
   padding: 0 15px;
@@ -79,6 +75,24 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+.footer-social-link {
+  padding: 0px 2px;
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  :hover {
+    opacity: 0.5;
+    transition: 0.3s ease;
+  }
+}
+[theme='dark'] .footer-social-link {
+  padding: 0px 2px;
+  border-radius: 4px;
+  background-color: #262626;
+  :hover {
+    opacity: 0.5;
+    transition: 0.3s ease;
+  }
+}
 @media screen and (max-width: 900px) {
   .footer {
     padding: 10px;

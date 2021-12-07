@@ -86,4 +86,10 @@ export default {
     }
   }
 }
+
+[theme='light'] .c-drawer__close {
+  @media screen and (max-width: 900px) {
+    filter: invert(100%);
+  }
+}
 </style>

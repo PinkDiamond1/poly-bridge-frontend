@@ -39,7 +39,9 @@ export default {
   flex-direction: column;
   width: 500px;
   height: 100vh;
-  background: #171f31;
+  background: white;
+  background: var(--background-color-base);
+
   box-shadow: 0px 2px 18px 7px rgba(#000000, 0.1);
 }
 
@@ -67,7 +69,7 @@ export default {
 
   &:hover {
     opacity: 0.8;
-    background: rgba(#000000, 0.3);
+    background: var(--background-color-base-hover);
   }
 }
 

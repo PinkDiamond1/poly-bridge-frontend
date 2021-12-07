@@ -25,7 +25,10 @@ export default {
   width: stretch;
   height: 40px;
   border-radius: 4px;
+  background: var(--color-primary);
+  /*
   background: linear-gradient(225deg, #3ec7eb 0%, #282bdb 100%);
+  */
   font-weight: 500;
   font-size: 14px;
   text-transform: uppercase;
