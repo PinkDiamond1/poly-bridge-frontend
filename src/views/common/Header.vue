@@ -6,14 +6,8 @@
           v-if="darkMode"
           class="brand-logo"
           src="https://ghostmarket.io/brand/dark-logo-oneline.svg"
-          style="width:250px"
         />
-        <img
-          v-else
-          class="brand-logo"
-          src="https://ghostmarket.io/brand/light-logo-oneline.svg"
-          style="width:250px"
-        />
+        <img v-else class="brand-logo" src="https://ghostmarket.io/brand/light-logo-oneline.svg" />
         <!--<span class="brand-name">
           {{ $t('common.header.brandName') }}
         </span>-->
@@ -82,6 +76,12 @@ export default {
   display: flex;
   align-items: center;
   // @include child-margin-h(12px);
+  img {
+    width: 250px;
+    @media screen and (max-width: 900px) {
+      width: 200px;
+    }
+  }
 }
 .brand-logo {
   width: 35px;
