@@ -115,5 +115,8 @@ export default {
     display: flex !important;
     //  margin-top: 110px;
   }
+  .header-mobile-close {
+    filter: invert(100%);
+  }
 }
 </style>
