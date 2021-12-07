@@ -777,7 +777,6 @@ export default {
   white-space: pre-line;
   text-align: left;
   color: var(--color-text-primary);
-  color: #fff;
   @media screen and (max-width: 900px) {
     font-size: 12px;
   }
