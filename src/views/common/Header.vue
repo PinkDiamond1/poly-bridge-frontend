@@ -116,7 +116,7 @@ export default {
     //  margin-top: 110px;
   }
   .header-mobile-close {
-    filter: invert(100%);
+    filter: invert(1) !important;
   }
 }
 </style>
