@@ -769,6 +769,9 @@ export default {
   white-space: pre-line;
   text-align: left;
   color: #fff;
+  @media screen and (max-width: 900px) {
+    font-size: 12px;
+  }
 }
 
 .address {
