@@ -6,7 +6,7 @@ export default {
   ...element,
   common: {
     header: {
-      brandName: 'GhostMarket Bridge',
+      brandName: 'GhostMarket Token Bridge',
     },
     wallets: {
       connectWallet: 'Connect Wallet',
