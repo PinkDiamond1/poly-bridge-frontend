@@ -1,7 +1,5 @@
 <template>
-  <button v-bind="$attrs"
-          :class="b({ fade })"
-          v-on="$listeners">
+  <button v-bind="$attrs" :class="b({ fade })" v-on="$listeners">
     <slot />
   </button>
 </template>
@@ -40,7 +38,7 @@ export default {
   }
 
   &:disabled {
-    filter: brightness(0.3);
+    filter: brightness(1);
     cursor: not-allowed;
   }
 }

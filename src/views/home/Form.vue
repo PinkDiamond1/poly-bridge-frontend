@@ -131,7 +131,7 @@
           </div>
           <div class="input-error">{{ errors[0] }}</div>
           <div v-if="fee" class="fee">
-            <span class="label">{{ $t('home.form.maxamount') }}</span>
+            <span class="label text-base">{{ $t('home.form.maxamount') }}</span>
             <CTooltip>
               <img class="tooltip-icon" src="@/assets/svg/question.svg" />
               <template #content>
@@ -155,7 +155,7 @@
             </CTooltip>
           </div>
           <div v-if="fee" class="fee">
-            <span class="label">{{ $t('home.form.fee') }}</span>
+            <span class="label text-base">{{ $t('home.form.fee') }}</span>
             <CTooltip>
               <img class="tooltip-icon" src="@/assets/svg/question.svg" />
               <template #content>
@@ -170,7 +170,7 @@
             }}</span>
           </div>
           <div v-if="expectTime" class="fee">
-            <span class="label">{{ $t('home.form.time') }}</span>
+            <span class="label text-base">{{ $t('home.form.time') }}</span>
             <CTooltip>
               <img class="tooltip-icon" src="@/assets/svg/question.svg" />
               <template #content>
@@ -652,25 +652,33 @@ export default {
   transition: all ease 0.3s;
 }
 .tooltip-icon {
+  background: var(--color-primary);
+  border-radius: 4px;
+  padding: 1px;
   vertical-align: middle !important;
 }
 </style>
 <style lang="scss" scoped>
 .form {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   @include child-margin-v(30px);
 }
-
 .card {
   box-sizing: border-box;
   width: 452px;
   padding: 40px 50px 54px;
-  background: #171f31;
+  background: #fff;
   box-shadow: 0px 2px 18px 7px rgba(#000000, 0.1);
   border-radius: 10px;
   position: relative;
+}
+[theme='dark'] {
+  .card {
+    background: #1a1a1a;
+  }
 }
 .card-hidden {
   box-sizing: border-box;
@@ -693,7 +701,7 @@ export default {
   font-weight: 500px;
   font-size: 20px;
   text-align: center;
-  color: white;
+  color: var(--color-text-primary);
   @include next-margin-v(30px);
 }
 
@@ -713,10 +721,10 @@ export default {
 }
 
 .label {
-  opacity: 0.6;
+  opacity: 1;
   font-weight: 500;
   font-size: 12px;
-  color: white;
+  color: var(--color-primary);
 }
 
 .value {
@@ -754,7 +762,7 @@ export default {
   align-items: flex-start;
   width: stretch;
   padding: 15px;
-  border: 1px solid rgba(#ffffff, 0.1);
+  border: 1px solid rgba(#000, 0.1);
   border-radius: 4px;
   background: rgba(#ffffff, 0.04);
 }
@@ -768,7 +776,7 @@ export default {
   font-size: 14px;
   white-space: pre-line;
   text-align: left;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .address {
@@ -788,8 +796,14 @@ export default {
 .input {
   display: flex;
   padding: 18px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  /*
   background: rgba(#000000, 0.26);
+  */
   border-radius: 4px;
+}
+[theme='dark'] .input {
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .input-error {
@@ -838,6 +852,9 @@ export default {
   label {
     margin-bottom: 10px;
   }
+}
+.text-base {
+  color: var(--color-text-primary) !important;
 }
 </style>
 <style lang="scss" scoped>
