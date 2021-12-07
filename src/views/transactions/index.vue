@@ -74,7 +74,10 @@
               min-width="120"
               :label="$t('transactions.index.amount')"
             >
-              {{ $formatNumber(row.amount) }} {{ row.tokenBasicName }}
+              <div style="display: flex;">
+                <img class="chain-icon" src="@/assets/png/gm.png" />
+                {{ $formatNumber(row.amount) }} {{ row.tokenBasicName }}
+              </div>
             </ElTableColumn>
             <ElTableColumn #default="{ row }" min-width="120" :label="$t('transactions.index.fee')">
               {{ $formatNumber(row.fee) }} {{ row.txfeeToken.name }}
