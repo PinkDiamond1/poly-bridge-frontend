@@ -17,15 +17,15 @@
       <div class="title">{{ $t('home.form.title') }}</div>
       <div class="fields">
         <div class="field">
-          <div class="label">{{ $t('home.form.asset') }}</div>
-          <CButton class="select-token-basic" @click="selectTokenBasicVisible = true" disabled>
+          <!--<div class="label">{{ $t('home.form.asset') }}</div>-->
+          <!--<CButton class="select-token-basic" @click="selectTokenBasicVisible = true" disabled>
             <template v-if="tokenBasic">
               <img class="select-token-basic-icon" :src="tokenBasic.meta" />
               <span class="select-token-basic-name">{{ tokenBasicName }}</span>
             </template>
             <CFlexSpan />
             <img src="@/assets/svg/chevron-right.svg" />
-          </CButton>
+          </CButton>-->
         </div>
 
         <div class="fields-row">
