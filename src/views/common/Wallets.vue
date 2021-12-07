@@ -86,6 +86,10 @@ export default {
   border: 1px solid #ffffff;
   border-radius: 4px;
   font-size: 14px;
+
+  &:hover {
+    opacity: 0.5;
+  }
 }
 </style>
 
