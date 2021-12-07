@@ -776,7 +776,14 @@ export default {
   font-size: 14px;
   white-space: pre-line;
   text-align: left;
+<<<<<<< HEAD
   color: var(--color-text-primary);
+=======
+  color: #fff;
+  @media screen and (max-width: 900px) {
+    font-size: 12px;
+  }
+>>>>>>> b3615c83569980d3e6d3bfa91587c0ecd3f40df2
 }
 
 .address {

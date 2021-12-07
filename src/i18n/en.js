@@ -44,7 +44,7 @@ export default {
       max: 'MAX',
       balance: 'Balance',
       fee: 'Fee',
-      time: 'Estimated Transaction Time',
+      time: 'Estimated Time',
       o3ToolTip: 'Available Balance',
       feeTooltip: 'Transaction fee on target chain',
       timeTooltip:
@@ -55,7 +55,7 @@ export default {
       approveInfinitytip:
         'After checking, approve unlimited token usage, this behavior may be risky, please judge according to the actual situation',
       approveInfinity: 'Approve Unlimited',
-      maxamount: 'Max Available Amount',
+      maxamount: 'Max Amount',
       maxamountTooltip:
         'The largest available number of cross-chain assets on the currently selected target chain (estimated value)',
     },
