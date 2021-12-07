@@ -369,7 +369,7 @@ export const TOKEN_BASIC_ICONS = {
   XTF: require('@/assets/svg/xtf.svg'),
   TAP: require('@/assets/svg/tap.svg'),
   '8PAY': require('@/assets/jpg/8pay.jpg'),
-  GM: require('@/assets/svg/gm.svg'),
+  GM: require('@/assets/png/gm.png'),
 };
 
 export const DEFAULT_TOKEN_BASIC_NAME = 'GM';
