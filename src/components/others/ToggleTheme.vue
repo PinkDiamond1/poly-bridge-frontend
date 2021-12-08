@@ -32,8 +32,16 @@ export default {
   margin-left: 10px;
   border: 2px solid var(--color-line-base);
   border-radius: 7px;
+  transition: 0.2s ease-in-out;
   &:hover {
     filter: brightness(0.6);
+  }
+}
+[theme='light'] {
+  .toggle_theme_container {
+    &:hover {
+      opacity: 0.4;
+    }
   }
 }
 .toggle_theme_icon {

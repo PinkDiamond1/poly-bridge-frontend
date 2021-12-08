@@ -32,7 +32,7 @@
   }
 
   .cell {
-    color: #ffffff;
+    color: var(--color-text-primary);
     opacity: 0.8;
     font-weight: 400;
     font-size: 14px;
@@ -46,6 +46,7 @@
   @include m(enable-row-hover) {
     .el-table__body tr:hover > td {
       background-color: rgba(#000000, 0.15);
+      border: 1px solid red;
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <Page class="transactions">
-    <img class="top-decoration" src="@/assets/svg/poly-bg.svg" />
+    <img class="top-decoration" src="" />
     <div class="bottom-decoration-wrapper">
-      <img class="bottom-decoration" src="@/assets/svg/poly-bg.svg" />
+      <img class="bottom-decoration" src="" />
     </div>
     <div class="content">
       <div class="content-inner">
@@ -230,8 +230,12 @@ export default {
 .table-wrapper {
   padding: 12px 0 24px;
   border-radius: 20px;
-  background: #182233;
+  background: var(--background-color-base);
   @include child-margin-v(24px);
+  box-shadow: 0px 2px 18px 7px rgb(0 0 0 / 10%);
+}
+[theme='dark'] .table-wrapper {
+  background: #1a1a1a;
 }
 
 .chain {
