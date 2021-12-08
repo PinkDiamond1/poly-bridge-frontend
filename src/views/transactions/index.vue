@@ -75,7 +75,7 @@
               :label="$t('transactions.index.amount')"
             >
               <div style="display: flex;">
-                <img class="chain-icon" src="@/assets/png/gm.png" />
+                <img class="chain-icon" src="@/assets/png/gm.png" style="margin-right:5px;" />
                 {{ $formatNumber(row.amount) }} {{ row.tokenBasicName }}
               </div>
             </ElTableColumn>

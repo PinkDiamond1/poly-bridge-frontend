@@ -81,7 +81,7 @@ export default {
       fee: 'Fee',
       chainName: '{chainName} Blockchain',
       receiving: 'You will receive',
-      packing: 'Transaction is packing on {chainName}. Please be patient...',
+      packing: 'Transaction is procesing on {chainName}. Please be patient...',
       hash: 'Hash: {hash}',
     },
   },
