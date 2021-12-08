@@ -51,6 +51,6 @@
 }
 
 [theme="light"] .el-table__body tr:hover > td {
-    background-color: rgba(#000000, 0.03);
+    background-color: rgba(#000000, 0.15);
 }
 
