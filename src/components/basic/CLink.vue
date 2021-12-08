@@ -37,6 +37,8 @@ export default {
   img {
     height: 36px;
     width: 36px;
+    display: flex;
+    align-content: center;
   }
 
   &:hover {
