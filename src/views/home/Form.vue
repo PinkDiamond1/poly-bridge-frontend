@@ -14,7 +14,14 @@
           </div>
         </div>
       </div> -->
-      <div class="title">{{ $t('home.form.title') }}</div>
+      <div class="title" style="display: flex; align-items: center; justify-content: center">
+        <img
+          class="chain-icon"
+          src="@/assets/png/gm.png"
+          style="width: 30px; height: 30px; margin-right: 10px; border-radius: 15px;"
+        />
+        {{ $t('home.form.title') }}
+      </div>
       <div class="fields">
         <div class="field">
           <!--<div class="label">{{ $t('home.form.asset') }}</div>-->
@@ -702,7 +709,7 @@ export default {
 
 .title {
   font-weight: 500px;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   color: var(--color-text-primary);
   @include next-margin-v(30px);
