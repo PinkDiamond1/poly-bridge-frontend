@@ -1,8 +1,8 @@
 <template>
   <Page class="home">
-    <img class="top-decoration" src="@/assets/svg/poly-bg.svg" />
+    <img class="top-decoration" src="" />
     <div class="bottom-decoration-wrapper">
-      <img class="bottom-decoration" src="@/assets/svg/poly-bg.svg" />
+      <img class="bottom-decoration" src="" />
     </div>
     <div class="content">
       <!-- <div class="slogan" v-html="$t('home.index.slogon')" /> -->
