@@ -46,7 +46,7 @@ export default {
       fee: 'Fee',
       time: 'Estimated Transaction Time',
       o3ToolTip: 'Available Balance',
-      feeTooltip: 'Transaction fee',
+      feeTooltip: 'Transaction fees',
       timeTooltip:
         'An estimation of how long until funds will arrive in the destination address based on overall transfer history.',
       connectWallet: 'Connect Wallet',

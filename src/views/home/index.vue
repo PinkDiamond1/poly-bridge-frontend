@@ -64,6 +64,7 @@ export default {
   flex: 1;
   justify-content: center;
   align-items: center;
+  margin: 2rem auto;
   @include child-margin-h(128px);
 }
 
