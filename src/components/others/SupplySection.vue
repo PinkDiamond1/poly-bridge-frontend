@@ -10,7 +10,14 @@
         <div class="supplyHeading__description">
           Live statistics on GM supply on each blockchain
         </div>
-        <div class="supplyHeading__total">GM Total Supply: {{ totalSupplyCount }}</div>
+        <div class="supplyHeading__total">
+          <img
+            :src="require(`@/assets/png/gm.png`)"
+            class="supplyItem__token__image"
+            style="height: 30px; width: 30px; margin-right: 0.5rem;"
+          />
+          GM Total Supply: {{ totalSupplyCount }}
+        </div>
       </div>
       <!-- eof supply heading -->
     </div>
@@ -143,6 +150,8 @@ export default {
   &__total {
     margin-top: 20px;
     text-align: center;
+    display: flex;
+    align-items: center;
   }
 }
 
