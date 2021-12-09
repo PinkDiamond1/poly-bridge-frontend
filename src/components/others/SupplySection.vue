@@ -8,10 +8,9 @@
           Token Distribution
         </div>
         <div class="supplyHeading__description">
-          We provide up-to-date statistics on how token is being distributed between blockchain
-          networks
+          Live statistics on GM supply on each blockchain
         </div>
-        <div class="supplyHeading__total">Total Supply: {{ totalSupplyCount }}</div>
+        <div class="supplyHeading__total">GM Total Supply: {{ totalSupplyCount }}</div>
       </div>
       <!-- eof supply heading -->
     </div>
@@ -22,10 +21,10 @@
       <div class="supplyList">
         <div class="supplyList__header">
           <div class="supplyList__header__item supplyList__header__item__first">
-            Token
+            Blockchain
           </div>
           <div class="supplyList__header__item supplyList__header__item__second">
-            Available Amount
+            Supply
           </div>
           <div class="supplyList__header__item supplyList__header__item__third">
             Percentage
@@ -60,7 +59,7 @@ export default {
   name: 'SupplySection',
   data() {
     return {
-      totalSupplyCount: '200,000,000',
+      totalSupplyCount: '100,000,000',
       supplyTokens: [
         {
           id: 1,
@@ -117,8 +116,7 @@ export default {
 
 <style lang="scss" scoped>
 .supplyComponent {
-  margin: 10px 0px;
-  padding: 30px 0px;
+  padding: 4rem 0;
   background-color: #f8f8fa;
 }
 .supplyHeadingWrapper {
@@ -170,7 +168,7 @@ export default {
     justify-content: center;
     &__item {
       color: white;
-      font-size: 13px;
+      font-size: 16px;
       display: flex;
       justify-content: center;
       &__first {
@@ -205,19 +203,19 @@ export default {
       height: 20px;
     }
     &__title {
-      font-size: 12px;
+      font-size: 16px;
       margin-left: 7px;
     }
   }
   &__amount {
     width: 25%;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     justify-content: center;
   }
   &__percentage {
     width: 25%;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     justify-content: center;
   }
