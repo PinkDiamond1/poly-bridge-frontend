@@ -8,11 +8,15 @@
       <!-- <div class="slogan" v-html="$t('home.index.slogon')" /> -->
       <Form />
     </div>
+    <!-- supply section -->
+    <SupplySection />
+    <!-- eof supply section -->
   </Page>
 </template>
 
 <script>
 import Page from '@/views/common/Page';
+import SupplySection from '@/components/others/SupplySection';
 import Form from './Form';
 
 export default {
@@ -20,6 +24,7 @@ export default {
   components: {
     Page,
     Form,
+    SupplySection,
   },
 };
 </script>
