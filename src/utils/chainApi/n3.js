@@ -15,7 +15,7 @@ async function addressToHash(inputaddress) {
 async function addressToHex(address) {
   const hex = reverseHex(await addressToHash(address));
   console.log(hex);
-  return address;
+  return hex;
 }
 
 function isValidAddress(address) {

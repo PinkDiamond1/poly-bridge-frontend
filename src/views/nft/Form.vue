@@ -1,17 +1,15 @@
 <template>
-  <ValidationObserver ref="validation"
-                      tag="div"
-                      class="form">
+  <ValidationObserver ref="validation" tag="div" class="form">
     <div class="card">
       <div class="fields-row">
         <div class="field-left">
           <div class="label">{{ $t('nft.form.chain') }}</div>
-          <CButton class="select-token-basic"
-                   @click="selectFromChainVisible = true">
+          <CButton class="select-token-basic" @click="selectFromChainVisible = true">
             <template>
-              <img class="select-token-basic-icon"
-                   :src="fromChain.icon" />
-              <span class="select-token-basic-name">{{ $formatEnum(fromChain.id, { type: 'chainName' }) }}</span>
+              <img class="select-token-basic-icon" :src="fromChain.icon" />
+              <span class="select-token-basic-name">{{
+                $formatEnum(fromChain.id, { type: 'chainName' })
+              }}</span>
             </template>
             <CFlexSpan />
             <img src="@/assets/svg/chevron-right.svg" />
@@ -19,21 +17,23 @@
           <div class="label margin-top-40">{{ $t('nft.form.items') }}</div>
           <div class="input asset-input">
             <img src="@/assets/png/search.png" />
-            <CInput class="input-inner"
-                    placeholder="Filter"
-                    v-model="assetsName" />
+            <CInput class="input-inner" placeholder="Filter" v-model="assetsName" />
           </div>
           <div class="scroll">
-            <div v-for="item in assets"
-                 :key="item.Hash"
-                 :class="itemHash === item.Hash?'asset asset-active ':'asset'"
-                 @click="itemSelect(item)">
+            <div
+              v-for="item in assets"
+              :key="item.Hash"
+              :class="itemHash === item.Hash ? 'asset asset-active ' : 'asset'"
+              @click="itemSelect(item)"
+            >
               <span class="asset-left">
                 <span>{{ item.Name }}</span>
               </span>
-              <img v-if="itemHash === item.Hash"
-                   style="color:#fff"
-                   src="@/assets/svg/check-w.svg" />
+              <img
+                v-if="itemHash === item.Hash"
+                style="color:#fff"
+                src="@/assets/svg/check-w.svg"
+              />
             </div>
           </div>
         </div>
@@ -41,66 +41,66 @@
           <div class="fields-row">
             <div class="id-input input">
               <img src="@/assets/png/search.png" />
-              <CInput class="input-inner"
-                      placeholder="NFT ID"
-                      v-model="searchTokenID"
-                      v-on:keyup.enter="getItems(itemHash,searchTokenID,1)" />
+              <CInput
+                class="input-inner"
+                placeholder="NFT ID"
+                v-model="searchTokenID"
+                v-on:keyup.enter="getItems(itemHash, searchTokenID, 1)"
+              />
             </div>
             <!--             <div class="search-button"
                  @click="getItems(itemHash,searchTokenID,1)">
               {{$t('nft.form.search')}}
             </div> -->
           </div>
-          <div class="item-content"
-               v-loading="itemLoading">
-            <div v-if="fromWallet"
-                 class="total">
-              {{itemsTotal}} {{$t('nft.form.result')}}
-            </div>
+          <div class="item-content" v-loading="itemLoading">
+            <div v-if="fromWallet" class="total">{{ itemsTotal }} {{ $t('nft.form.result') }}</div>
             <div class="items-content">
-              <div v-for="item in items"
-                   class="nft-item"
-                   :key="item.TokenId"
-                   @click="tokenSelect(item)">
+              <div
+                v-for="item in items"
+                class="nft-item"
+                :key="item.TokenId"
+                @click="tokenSelect(item)"
+              >
                 <div class="image">
-                  <div v-if="item.Image"
-                       class="img-wrapper">
-                    <img :id="'img'+item.TokenId"
-                         :src="item.Image"
-                         :onerror="defaultImg" />
-                    <video :id="'video'+item.TokenId"
-                           autoplay="autoplay"
-                           loop="loop"
-                           muted="muted"
-                           :src="item.Image">
+                  <div v-if="item.Image" class="img-wrapper">
+                    <img :id="'img' + item.TokenId" :src="item.Image" :onerror="defaultImg" />
+                    <video
+                      :id="'video' + item.TokenId"
+                      autoplay="autoplay"
+                      loop="loop"
+                      muted="muted"
+                      :src="item.Image"
+                    >
                       您的浏览器不支持 video 标签。
                     </video>
                   </div>
-                  <div v-else
-                       class="img-wrapper-unknow">
+                  <div v-else class="img-wrapper-unknow">
                     <img :src="unknowNFT" />
                   </div>
                 </div>
-                <div class="nft-name">{{item.Name}}</div>
-                <div class="nft-tokenid">#{{item.TokenId}}</div>
+                <div class="nft-name">{{ item.Name }}</div>
+                <div class="nft-tokenid">#{{ item.TokenId }}</div>
               </div>
             </div>
-            <div class="pagination"
-                 v-if="fromWallet && itemsTotal > 10">
-              <el-pagination layout="prev, pager, next"
-                             @current-change="handleCurrentChange"
-                             :current-page="currentPage"
-                             :page-size="12"
-                             :total="itemsTotal">
+            <div class="pagination" v-if="fromWallet && itemsTotal > 10">
+              <el-pagination
+                layout="prev, pager, next"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-size="12"
+                :total="itemsTotal"
+              >
               </el-pagination>
             </div>
-            <div class="pagination"
-                 v-if="!fromWallet && itemsShow.length > 0">
-              <el-pagination layout="prev, pager, next"
-                             @current-change="handleCurrentShowChange"
-                             :current-page="currentPage"
-                             :page-size="12"
-                             :total="itemsShowTotal">
+            <div class="pagination" v-if="!fromWallet && itemsShow.length > 0">
+              <el-pagination
+                layout="prev, pager, next"
+                @current-change="handleCurrentShowChange"
+                :current-page="currentPage"
+                :page-size="12"
+                :total="itemsShowTotal"
+              >
               </el-pagination>
             </div>
           </div>
@@ -126,34 +126,47 @@
 
     <div class="history">
       {{ $t('home.form.historyPrefix') }}
-      <CLink class="link"
-             :to="{ name: 'nfttransactions' }">{{ $t('home.form.historyLink') }}</CLink>
+      <CLink class="link" :to="{ name: 'nfttransactions' }">{{
+        $t('home.form.historyLink')
+      }}</CLink>
     </div>
 
-    <SelectChain :visible.sync="selectFromChainVisible"
-                 :chainId="fromChainId"
-                 @update:chainId="changeFromChainId"
-                 :chains="nftChains || []" />
-    <SelectChain :visible.sync="selectToChainVisible"
-                 :chainId="toChainId"
-                 @update:chainId="changeToChainId"
-                 :chains="toChains || []" />
-    <ConnectWallet :visible.sync="connectWalletVisible"
-                   :fromChainId="fromChainId"
-                   :toChainId="toChainId" />
-    <Confirm :key="confirmUuid"
-             :visible.sync="confirmVisible"
-             :confirmingData.sync="confirmingData"
-             @closed="handleClosed"
-             @packed="handlePacked" />
-    <Detail v-if="detailVisible"
-            :visible.sync="detailVisible"
-            :nftData.sync="nftData"
-            @openSelectToChain="openSelectToChain"
-            @openConnectWallet="openConnectWallet"
-            @openConfirm="openConfirm" />
-    <TransactionDetails :visible.sync="transactionDetailsVisible"
-                        :confirmingData="confirmingData" />
+    <SelectChain
+      :visible.sync="selectFromChainVisible"
+      :chainId="fromChainId"
+      @update:chainId="changeFromChainId"
+      :chains="nftChains || []"
+    />
+    <SelectChain
+      :visible.sync="selectToChainVisible"
+      :chainId="toChainId"
+      @update:chainId="changeToChainId"
+      :chains="toChains || []"
+    />
+    <ConnectWallet
+      :visible.sync="connectWalletVisible"
+      :fromChainId="fromChainId"
+      :toChainId="toChainId"
+    />
+    <Confirm
+      :key="confirmUuid"
+      :visible.sync="confirmVisible"
+      :confirmingData.sync="confirmingData"
+      @closed="handleClosed"
+      @packed="handlePacked"
+    />
+    <Detail
+      v-if="detailVisible"
+      :visible.sync="detailVisible"
+      :nftData.sync="nftData"
+      @openSelectToChain="openSelectToChain"
+      @openConnectWallet="openConnectWallet"
+      @openConfirm="openConfirm"
+    />
+    <TransactionDetails
+      :visible.sync="transactionDetailsVisible"
+      :confirmingData="confirmingData"
+    />
   </ValidationObserver>
 </template>
 
@@ -181,7 +194,7 @@ export default {
     Detail,
     TransactionDetails,
   },
-  data () {
+  data() {
     return {
       selectTokenBasicVisible: false,
       selectFromChainVisible: false,
@@ -211,49 +224,55 @@ export default {
     };
   },
   computed: {
-    tokenBasic () {
+    tokenBasic() {
       return this.$store.getters.getTokenBasic(this.tokenBasicName);
     },
-    assets () {
-      const assetsList = this.$store.getters.getAssetsBasics.Assets
-      let list = []
+    assets() {
+      const assetsList = this.$store.getters.getAssetsBasics.Assets;
+      let list = [];
       if (this.assetsName !== '') {
         for (let i = 0; i < assetsList.length; i += 1) {
           if (assetsList[i].Name.toUpperCase().indexOf(this.assetsName.toUpperCase()) > -1) {
-            list.push(assetsList[i])
+            list.push(assetsList[i]);
           }
         }
       } else {
-        list = assetsList
+        list = assetsList;
       }
-      return list
+      return list;
     },
-    chainBasic () {
-      return this.nftChains[0]
+    chainBasic() {
+      return this.nftChains[0];
     },
-    itemsTotal () {
-      const itemsTotal = this.$store.getters.getItems.TotalCount ? this.$store.getters.getItems.TotalCount : 0
-      return itemsTotal
+    itemsTotal() {
+      const itemsTotal = this.$store.getters.getItems.TotalCount
+        ? this.$store.getters.getItems.TotalCount
+        : 0;
+      return itemsTotal;
     },
-    items () {
-      const AssetsShow = this.$store.getters.getItemsShow.Assets ? this.$store.getters.getItemsShow.Assets : []
-      const itemsShow = AssetsShow[0] ? AssetsShow[0].Items : []
-      const items = this.$store.getters.getItems ? this.$store.getters.getItems.Items : []
-      return this.fromWallet ? items : itemsShow
+    items() {
+      const AssetsShow = this.$store.getters.getItemsShow.Assets
+        ? this.$store.getters.getItemsShow.Assets
+        : [];
+      const itemsShow = AssetsShow[0] ? AssetsShow[0].Items : [];
+      const items = this.$store.getters.getItems ? this.$store.getters.getItems.Items : [];
+      return this.fromWallet ? items : itemsShow;
     },
-    itemsShow () {
-      return this.$store.getters.getItemsShow.Assets
+    itemsShow() {
+      return this.$store.getters.getItemsShow.Assets;
     },
-    itemsTrue () {
-      return this.$store.getters.getItems
+    itemsTrue() {
+      return this.$store.getters.getItems;
     },
-    chains () {
+    chains() {
       return this.$store.getters.chains.filter(chain => chain.id !== ChainId.Poly);
     },
-    nftChains () {
-      return this.$store.getters.chains.filter(chain => chain.id !== ChainId.Poly && chain.id !== ChainId.Ont && chain.id !== ChainId.Neo);
+    nftChains() {
+      return this.$store.getters.chains.filter(
+        chain => chain.id !== ChainId.Poly && chain.id !== ChainId.Ont && chain.id !== ChainId.Neo,
+      );
     },
-    fromChains () {
+    fromChains() {
       return (
         this.tokenBasic &&
         this.$store.getters
@@ -262,10 +281,10 @@ export default {
           .filter(chain => chain)
       );
     },
-    fromChain () {
+    fromChain() {
       return this.fromChainId ? this.$store.getters.getChain(this.fromChainId) : this.chainBasic;
     },
-    fromToken () {
+    fromToken() {
       return (
         this.tokenBasic &&
         this.$store.getters.getTokenByTokenBasicNameAndChainId({
@@ -274,10 +293,10 @@ export default {
         })
       );
     },
-    fromWallet () {
+    fromWallet() {
       return this.$store.getters.getChainConnectedWallet(this.fromChainId);
     },
-    getTokenMapsParams () {
+    getTokenMapsParams() {
       if (this.fromToken) {
         return {
           fromChainId: this.fromChainId,
@@ -286,13 +305,13 @@ export default {
       }
       return null;
     },
-    tokenMaps () {
+    tokenMaps() {
       return this.getTokenMapsParams && this.$store.getters.getTokenMaps(this.getTokenMapsParams);
     },
-    assetMap () {
-      return this.$store.getters.getAssetMap.DstAssets
+    assetMap() {
+      return this.$store.getters.getAssetMap.DstAssets;
     },
-    toChains () {
+    toChains() {
       return (
         this.assetMap &&
         this.assetMap
@@ -300,10 +319,10 @@ export default {
           .filter(chain => chain)
       );
     },
-    toChain () {
+    toChain() {
       return this.$store.getters.getChain(this.toChainId);
     },
-    toToken () {
+    toToken() {
       return (
         this.tokenBasic &&
         this.$store.getters.getTokenByTokenBasicNameAndChainId({
@@ -312,10 +331,10 @@ export default {
         })
       );
     },
-    toWallet () {
+    toWallet() {
       return this.$store.getters.getChainConnectedWallet(this.toChainId);
     },
-    getBalanceParams () {
+    getBalanceParams() {
       if (this.fromWallet && this.fromToken) {
         return {
           chainId: this.fromChainId,
@@ -325,10 +344,10 @@ export default {
       }
       return null;
     },
-    balance () {
+    balance() {
       return this.getBalanceParams && this.$store.getters.getBalance(this.getBalanceParams);
     },
-    getAllowanceParams () {
+    getAllowanceParams() {
       if (this.fromWallet && this.fromChain && this.fromToken) {
         return {
           chainId: this.fromChainId,
@@ -339,124 +358,124 @@ export default {
       }
       return null;
     },
-    allowance () {
+    allowance() {
       return this.getAllowanceParams && this.$store.getters.getAllowance(this.getAllowanceParams);
     },
-    needApproval () {
+    needApproval() {
       return !!this.amount && !!this.allowance && new BigNumber(this.amount).gt(this.allowance);
     },
-    fee () {
+    fee() {
       return this.$store.getters.getNftFee;
     },
   },
   watch: {
-    async getBalanceParams (value) {
+    async getBalanceParams(value) {
       if (value) {
         await this.$store.dispatch('ensureChainWalletReady', value.chainId);
         this.$store.dispatch('getBalance', value);
       }
     },
-    getFeeParams (value) {
+    getFeeParams(value) {
       if (value) {
         this.$store.dispatch('getFee', value);
       }
     },
-    getTokenMapsParams (value) {
+    getTokenMapsParams(value) {
       if (value) {
         this.$store.dispatch('getTokenMaps', value);
       }
     },
-    async getAllowanceParams (value) {
+    async getAllowanceParams(value) {
       if (value) {
         await this.$store.dispatch('ensureChainWalletReady', value.chainId);
         this.$store.dispatch('getAllowance', value);
       }
     },
-    assets () {
+    assets() {
       if (this.assets[0]) {
-        this.itemHash = this.assets[0].Hash
+        this.itemHash = this.itemHash ? this.itemHash : this.assets[0].Hash;
         if (this.fromWallet) {
-          this.getItems(this.itemHash, '', this.currentPage)
-          this.getAssetMap()
+          this.getItems(this.itemHash, '', this.currentPage);
+          this.getAssetMap();
         }
       }
     },
-    fromWallet () {
-      this.init()
+    fromWallet() {
+      this.init();
     },
-    items () {
-      console.log(this.items)
+    items() {
+      console.log(this.items);
     },
-    itemsShow () {
-      this.itemLoading = false
+    itemsShow() {
+      this.itemLoading = false;
       if (this.itemsShowTotal < 191) {
         if (this.itemsShow[0]) {
           if (this.itemsShow[0].HasMore) {
-            this.itemsShowTotal = this.currentShowPage * 12 + 1
+            this.itemsShowTotal = this.currentShowPage * 12 + 1;
           }
           if (!this.itemsShow[0].HasMore && this.itemsShow[0].Items.length > 0) {
-            this.itemsShowTotal = this.currentShowPage * 12 + this.itemsShow[0].Items.length - 12
+            this.itemsShowTotal = this.currentShowPage * 12 + this.itemsShow[0].Items.length - 12;
           }
         }
       }
     },
-    itemsTrue () {
-      this.itemLoading = false
+    itemsTrue() {
+      this.itemLoading = false;
     },
-    toWallet () {
-      this.nftData.toWallet = this.toWallet
-    }
+    toWallet() {
+      this.nftData.toWallet = this.toWallet;
+    },
   },
-  created () {
-    this.init()
+  created() {
+    this.init();
   },
-  beforeDestroy () {
-  },
+  beforeDestroy() {},
   methods: {
-    showVideo ($id) {
-      console.log($id.concat('error'))
-      let id1 = 'img'
-      id1 = id1.concat($id)
-      let id2 = 'video'
-      id2 = id2.concat($id)
+    showVideo($id) {
+      console.log($id.concat('error'));
+      let id1 = 'img';
+      id1 = id1.concat($id);
+      let id2 = 'video';
+      id2 = id2.concat($id);
       if (document.getElementById(id1)) {
-        document.getElementById(id1).style.display = "none"
+        document.getElementById(id1).style.display = 'none';
       }
       if (document.getElementById(id2)) {
-        document.getElementById(id2).style.display = "block"
+        document.getElementById(id2).style.display = 'block';
       }
     },
-    showImg ($id) {
-      console.log($id.concat('done'))
-      let id1 = 'img'
-      id1 = id1.concat($id)
-      let id2 = 'video'
-      id2 = id2.concat($id)
+    showImg($id) {
+      console.log($id.concat('done'));
+      let id1 = 'img';
+      id1 = id1.concat($id);
+      let id2 = 'video';
+      id2 = id2.concat($id);
       if (document.getElementById(id1)) {
-        document.getElementById(id1).style.display = "block"
+        document.getElementById(id1).style.display = 'block';
       }
       if (document.getElementById(id2)) {
-        document.getElementById(id2).style.display = "none"
+        document.getElementById(id2).style.display = 'none';
       }
     },
-    handleCurrentChange (val) {
-      this.currentPage = val
-      this.getItems(this.itemHash, '', this.currentPage)
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      this.getItems(this.itemHash, '', this.currentPage);
     },
-    handleCurrentShowChange (val) {
-      this.currentShowPage = val
-      this.getItemsShow()
+    handleCurrentShowChange(val) {
+      this.currentShowPage = val;
+      this.getItemsShow();
     },
-    itemSelect (item) {
-      this.itemHash = item.Hash
-      this.getItems(this.itemHash, '', this.currentPage)
+    itemSelect(item) {
+      this.itemHash = item.Hash;
+      console.log(this.itemHash);
+      this.getItems(this.itemHash, '', this.currentPage);
     },
-    async tokenSelect (item) {
+    async tokenSelect(item) {
       if (!this.fromWallet) {
-        this.connectWalletVisible = true
+        this.connectWalletVisible = true;
       }
       const a = await this.$store.dispatch('ensureChainWalletReady', this.fromChainId);
-      this.getAssetMap()
+      this.getAssetMap();
       const walletApi = await getWalletApi(this.fromWallet.name);
       const Approval = await walletApi.getNFTApproved({
         fromChainId: this.fromChainId,
@@ -471,39 +490,39 @@ export default {
         assetHash: this.itemHash,
         fromWallet: this.fromWallet,
         toWallet: this.toWallet,
-        needApproval: Approval
-      }
-      this.detailVisible = true
+        needApproval: Approval,
+      };
+      this.detailVisible = true;
     },
-    async init () {
-      this.currentPage = 1
-      this.getItemsShow()
-      this.getAssets()
+    async init() {
+      this.currentPage = 1;
+      this.getItemsShow();
+      this.getAssets();
     },
-    getItemsShow () {
-      this.itemLoading = true
+    getItemsShow() {
+      this.itemLoading = true;
       const params = {
         ChainId: this.fromChain.id,
         PageSize: 12,
-        PageNo: this.currentShowPage - 1
-      }
+        PageNo: this.currentShowPage - 1,
+      };
       this.$store.dispatch('getItemsShow', params);
     },
-    getAssets () {
+    getAssets() {
       this.$store.dispatch('getAssetsBasics', this.fromChain);
     },
-    getAssetMap () {
+    getAssetMap() {
       const params = {
         ChainId: this.fromChain.id,
-        Hash: this.itemHash
-      }
+        Hash: this.itemHash,
+      };
       this.$store.dispatch('getAssetMap', params);
     },
-    getItems ($Asset, $TokenId, page) {
+    getItems($Asset, $TokenId, page) {
       if (this.fromWallet) {
-        this.itemLoading = true
+        this.itemLoading = true;
       } else {
-        return
+        return;
       }
       const params = {
         ChainId: this.fromChain.id,
@@ -512,16 +531,16 @@ export default {
         TokenId: $TokenId,
         PageNo: page - 1,
         PageSize: 12,
-      }
+      };
       this.$store.dispatch('getItems', params);
     },
-    openSelectToChain () {
-      this.selectToChainVisible = true
+    openSelectToChain() {
+      this.selectToChainVisible = true;
     },
-    openConnectWallet () {
-      this.connectWalletVisible = true
+    openConnectWallet() {
+      this.connectWalletVisible = true;
     },
-    openConfirm () {
+    openConfirm() {
       this.confirmingData = {
         fromAddress: this.fromWallet.address,
         toAddress: this.toWallet.address,
@@ -532,30 +551,30 @@ export default {
         amount: 0,
         fee: this.fee,
       };
-      this.confirmVisible = true
+      this.confirmVisible = true;
     },
-    changeTokenBasicName (tokenBasicName) {
+    changeTokenBasicName(tokenBasicName) {
       this.tokenBasicName = tokenBasicName;
       this.fromChainId = null;
       this.toChainId = null;
       this.clearAmount();
     },
-    changeFromChainId (chainId) {
+    changeFromChainId(chainId) {
       this.fromChainId = chainId;
       this.toChainId = null;
-      this.init()
+      this.init();
     },
-    changeToChainId (chainId) {
+    changeToChainId(chainId) {
       this.toChainId = chainId;
       this.nftData.toChainId = chainId;
       const params = {
         SrcChainId: this.fromChainId,
         Hash: this.fromChain.nftFeeContractHash,
         DstChainId: this.toChainId,
-      }
+      };
       this.$store.dispatch('getNftFee', params);
     },
-    async exchangeFromTo () {
+    async exchangeFromTo() {
       await this.$store.dispatch('getTokenMaps', {
         fromChainId: this.toChainId,
         fromTokenHash: this.toToken.hash,
@@ -569,15 +588,15 @@ export default {
       }
       this.clearAmount();
     },
-    copy (text) {
+    copy(text) {
       copy(text);
       this.$message.success(this.$t('messages.copied', { text }));
     },
-    transferAll () {
+    transferAll() {
       this.amount = this.balance;
       this.$nextTick(() => this.$refs.amountValidation.validate());
     },
-    async approve () {
+    async approve() {
       await this.$store.dispatch('ensureChainWalletReady', this.fromChainId);
       try {
         this.approving = true;
@@ -606,7 +625,7 @@ export default {
         this.approving = false;
       }
     },
-    next () {
+    next() {
       this.confirmingData = {
         fromAddress: this.fromWallet.address,
         toAddress: this.toWallet.address,
@@ -619,16 +638,16 @@ export default {
       };
       this.confirmVisible = true;
     },
-    handleClosed () {
+    handleClosed() {
       this.$nextTick(() => {
         this.confirmUuid = uuidv4();
       });
     },
-    handlePacked () {
+    handlePacked() {
       this.transactionDetailsVisible = true;
       this.clearAmount();
     },
-    clearAmount () {
+    clearAmount() {
       this.amount = '';
       this.$nextTick(() => this.$refs.amountValidation.reset());
     },

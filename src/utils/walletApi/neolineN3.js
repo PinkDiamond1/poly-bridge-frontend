@@ -9,6 +9,9 @@ import { TARGET_MAINNET } from '@/utils/env';
 import { tryToConvertAddressToHex } from '.';
 
 const NEOLINEN3_CONNECTED_KEY = 'NEOLINEN3_CONNECTED';
+const NEW_GAS = TARGET_MAINNET
+  ? '0xd2a4cff31913016155e38e474a2c06d08be276cf'
+  : '0xd2a4cff31913016155e38e474a2c06d08be276cf';
 
 const NETWORK_CHAIN_ID_MAPS = {
   [TARGET_MAINNET ? 'MainNet' : 'N3TestNet']: ChainId.N3,
@@ -138,7 +141,7 @@ async function getTransactionStatus({ transactionHash }) {
   try {
     let applicationLog = null;
     try {
-      applicationLog = await neoDapi.getApplicationLog({ txid: transactionHash });
+      applicationLog = await n3Dapi.getApplicationLog({ txid: transactionHash });
       // fix network error
       if (!applicationLog) {
         throw new WalletError('Communicate failed with wallet.', {
@@ -154,7 +157,7 @@ async function getTransactionStatus({ transactionHash }) {
     if (applicationLog) {
       const vmstate = _.get(applicationLog, 'executions[0].vmstate');
       const result = _.get(applicationLog, 'executions[0].stack[0].value');
-      return vmstate === 'HALT' && result === '1'
+      return vmstate === 'HALT' && result
         ? SingleTransactionStatus.Done
         : SingleTransactionStatus.Failed;
     }
@@ -197,7 +200,6 @@ async function lock({
     });
     const amountInt = decimalToInteger(amount, fromToken.decimals);
     const feeInt = decimalToInteger(fee, 8);
-
     const params = {
       scriptHash: chain.lockContractHash,
       operation: 'lock',
@@ -214,13 +216,14 @@ async function lock({
       signers: [
         {
           account: fromAddressHash,
-          scopes: 128,
+          scopes: 17,
+          allowedContracts: [`0x${fromTokenHash}`, NEW_GAS],
         },
       ],
     };
     console.log(params);
     const result = await n3Dapi.invoke(params);
-    return result.txid;
+    return result.txid.substr(2, 64);
   } catch (error) {
     throw convertWalletError(error);
   }
