@@ -1,5 +1,21 @@
 <template>
   <div class="supplyComponent">
+    <!-- supply heading wrapper -->
+    <div class="supplyHeadingWrapper">
+      <!-- supply heading -->
+      <div class="supplyHeading">
+        <div class="supplyHeading__title">
+          Token Distribution
+        </div>
+        <div class="supplyHeading__description">
+          We provide up-to-date statistics on how token is being distributed between blockchain
+          networks
+        </div>
+        <div class="supplyHeading__total">Total Supply: {{ totalSupplyCount }}</div>
+      </div>
+      <!-- eof supply heading -->
+    </div>
+    <!-- eof supply heading wrapper -->
     <!-- supply list wrapper -->
     <div class="supplyListWrapper">
       <!-- supply list -->
@@ -44,6 +60,7 @@ export default {
   name: 'SupplySection',
   data() {
     return {
+      totalSupplyCount: '200,000,000',
       supplyTokens: [
         {
           id: 1,
@@ -101,14 +118,41 @@ export default {
 <style lang="scss" scoped>
 .supplyComponent {
   margin: 10px 0px;
-  padding: 20px 0px;
+  padding: 30px 0px;
   background-color: #f8f8fa;
 }
+.supplyHeadingWrapper {
+  margin: 0px 10px;
+}
+.supplyHeading {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  &__title {
+    letter-spacing: 1.2px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+  }
+  &__description {
+    filter: invert(0.3);
+    line-height: 28px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  &__total {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
 [theme='dark'] .supplyComponent {
   background-color: #1a1a1a;
 }
 .supplyListWrapper {
-  margin: 0px 10px;
+  margin: 30px 10px 0px 10px;
 }
 .supplyList {
   background-color: white;
