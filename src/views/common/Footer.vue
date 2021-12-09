@@ -62,8 +62,10 @@ export default {
   @include child-margin-h(30px);
 }
 .copyright {
+  margin: 0px 8px;
   opacity: 0.4;
   font-size: 14px;
+  text-align: center;
 }
 .change-locale {
   height: 30px;
