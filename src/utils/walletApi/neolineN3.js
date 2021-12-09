@@ -14,7 +14,7 @@ const NEW_GAS = TARGET_MAINNET
   : '0xd2a4cff31913016155e38e474a2c06d08be276cf';
 
 const NETWORK_CHAIN_ID_MAPS = {
-  [TARGET_MAINNET ? 'MainNet' : 'N3TestNet']: ChainId.N3,
+  [TARGET_MAINNET ? 'N3MainNet' : 'N3TestNet']: ChainId.N3,
 };
 
 let neoDapi;
