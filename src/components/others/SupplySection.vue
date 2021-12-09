@@ -54,27 +54,34 @@ export default {
         },
         {
           id: 2,
+          imgsrc: 'eth-token.svg',
+          title: 'ERC-20',
+          availableAmount: '123123',
+          percentage: '123123 %',
+        },
+        {
+          id: 3,
           imgsrc: 'avalanche.svg',
           title: 'ERC-20',
           availableAmount: '123123',
           percentage: '234234 %',
         },
         {
-          id: 3,
+          id: 4,
           imgsrc: 'polygon.svg',
           title: 'ERC-20',
           availableAmount: '123123',
           percentage: '234234 %',
         },
         {
-          id: 4,
+          id: 5,
           imgsrc: 'neo.svg',
           title: 'NEP-17',
           availableAmount: '123123',
           percentage: '234234 %',
         },
         {
-          id: 4,
+          id: 6,
           imgsrc: 'phantasma.svg',
           title: 'PEPE-12',
           availableAmount: '123123',
@@ -97,6 +104,9 @@ export default {
   padding: 20px 0px;
   background-color: #f8f8fa;
 }
+[theme='dark'] .supplyComponent {
+  background-color: #1a1a1a;
+}
 .supplyListWrapper {
   margin: 0px 10px;
 }
@@ -109,7 +119,7 @@ export default {
   box-shadow: 0px 0px 17px -7px rgba(34, 60, 80, 0.2);
   overflow: hidden;
   &__header {
-    background: #7466ff;
+    background: var(--color-primary);
     display: flex;
     height: 40px;
     align-items: center;
@@ -130,6 +140,9 @@ export default {
       }
     }
   }
+}
+[theme='dark'] .supplyList {
+  background-color: #242323;
 }
 .supplyItem {
   height: 55px;
@@ -164,6 +177,9 @@ export default {
     display: flex;
     justify-content: center;
   }
+}
+[theme='dark'] .supplyItem {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 640px) {
