@@ -78,6 +78,9 @@ export default {
 .show-all {
   @include last-margin-h(10px);
 }
+[theme='light'] .show-all {
+  filter: invert(1);
+}
 .wallet-icon {
   width: 24px;
 }
