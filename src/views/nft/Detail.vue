@@ -1,34 +1,31 @@
 <template>
-  <CDialog v-bind="$attrs"
-           :closeOnClickModal="!confirming"
-           :closeOnPressEscape="!confirming"
-           v-on="$listeners">
+  <CDialog
+    v-bind="$attrs"
+    :closeOnClickModal="!confirming"
+    :closeOnPressEscape="!confirming"
+    v-on="$listeners"
+  >
     <div class="card">
       <div class="title">{{ $t('home.form.title') }}</div>
-      <div class="fields"
-           style="margin-top:40px">
-        <div class="field"
-             v-if="nftData">
+      <div class="fields" style="margin-top:40px">
+        <div class="field" v-if="nftData">
           <div class="select-nft-basic">
             <div class="image">
-              <div v-if="nftData.nft.Image"
-                   class="img-wrapper">
+              <div v-if="nftData.nft.Image" class="img-wrapper">
                 <img :src="nftData.nft.Image" />
               </div>
             </div>
-            <div class="token-id"># {{nftData.nft.TokenId}}</div>
+            <div class="token-id"># {{ nftData.nft.TokenId }}</div>
           </div>
         </div>
 
-        <div class="fields-row"
-             style="margin-top:40px">
+        <div class="fields-row" style="margin-top:40px">
           <div class="field">
             <div class="label">{{ $t('home.form.from') }}</div>
             <CButton class="select-chain">
               <div class="select-chain-content">
                 <template v-if="fromChain">
-                  <img class="select-chain-icon"
-                       :src="fromChain.icon" />
+                  <img class="select-chain-icon" :src="fromChain.icon" />
                   <span class="select-chain-name">
                     {{
                       $t('home.form.chainName', {
@@ -38,19 +35,15 @@
                   </span>
                 </template>
                 <template v-else>
-                  <img class="select-chain-icon"
-                       src="@/assets/svg/from.svg" />
+                  <img class="select-chain-icon" src="@/assets/svg/from.svg" />
                   <span class="select-chain-name">
                     {{ $t('home.form.chainName', { chainName: $t('home.form.from') }) }}
                   </span>
                 </template>
-                <img style="opacity:0"
-                     class="chevron-down"
-                     src="@/assets/svg/chevron-right.svg" />
+                <img style="opacity:0" class="chevron-down" src="@/assets/svg/chevron-right.svg" />
               </div>
             </CButton>
-            <div v-if="nftData"
-                 class="address">
+            <div v-if="nftData" class="address">
               <span class="address-value">
                 {{ $formatLongText(nftData.fromWallet.address, { headTailLength: 6 }) }}
               </span>
@@ -66,12 +59,10 @@
 
           <div class="field">
             <div class="label">{{ $t('home.form.to') }}</div>
-            <CButton class="select-chain"
-                     @click="openSelectToChain()">
+            <CButton class="select-chain" @click="openSelectToChain()">
               <div class="select-chain-content">
                 <template v-if="toChain">
-                  <img class="select-chain-icon"
-                       :src="toChain.icon" />
+                  <img class="select-chain-icon" :src="toChain.icon" />
                   <span class="select-chain-name">
                     {{
                       $t('home.form.chainName', {
@@ -81,18 +72,15 @@
                   </span>
                 </template>
                 <template v-else>
-                  <img class="select-chain-icon"
-                       src="@/assets/svg/to.svg" />
+                  <img class="select-chain-icon" src="@/assets/svg/to.svg" />
                   <span class="select-chain-name">
                     {{ $t('home.form.chainName', { chainName: $t('home.form.to') }) }}
                   </span>
                 </template>
-                <img class="chevron-down"
-                     src="@/assets/svg/chevron-right.svg" />
+                <img class="chevron-down" src="@/assets/svg/chevron-right.svg" />
               </div>
             </CButton>
-            <div v-if="nftData.toWallet"
-                 class="address">
+            <div v-if="nftData.toWallet" class="address">
               <span class="address-value">
                 {{ $formatLongText(nftData.toWallet.address, { headTailLength: 6 }) }}
               </span>
@@ -104,21 +92,23 @@
         </div>
       </div>
 
-      <CSubmitButton v-if="!nftData.toWallet"
-                     :disabled="!toChain"
-                     @click="openConnectWallet()"
-                     class="s-button">
+      <CSubmitButton
+        v-if="!nftData.toWallet"
+        :disabled="!toChain"
+        @click="openConnectWallet()"
+        class="s-button"
+      >
         {{ $t('home.form.connectWallet') }}
       </CSubmitButton>
-      <CSubmitButton v-else-if="nftData.needApproval"
-                     :loading="approving"
-                     class="s-button"
-                     @click="approve">
+      <CSubmitButton
+        v-else-if="nftData.needApproval"
+        :loading="approving"
+        class="s-button"
+        @click="approve"
+      >
         {{ approving ? $t('buttons.approving') : $t('buttons.approve') }}
       </CSubmitButton>
-      <CSubmitButton v-else
-                     class="s-button"
-                     @click="next">
+      <CSubmitButton v-else class="s-button" @click="next">
         {{ $t('buttons.next') }}
       </CSubmitButton>
     </div>
@@ -138,36 +128,36 @@ export default {
   props: {
     nftData: Object,
   },
-  data () {
+  data() {
     return {
       confirming: false,
       packing: false,
       approving: false,
       selectFromChainVisible: false,
       selectToChainVisible: false,
-      needApproval: true
+      needApproval: true,
     };
   },
   computed: {
-    fromChain () {
+    fromChain() {
       return this.nftData && this.$store.getters.getChain(this.nftData.fromChainId);
     },
-    toChain () {
+    toChain() {
       return this.nftData && this.$store.getters.getChain(this.nftData.toChainId);
     },
   },
   methods: {
-    openSelectToChain () {
+    openSelectToChain() {
       this.$emit('openSelectToChain');
     },
-    openConnectWallet () {
-      this.$emit('openConnectWallet')
+    openConnectWallet() {
+      this.$emit('openConnectWallet');
     },
-    copy (text) {
+    copy(text) {
       copy(text);
       this.$message.success(this.$t('messages.copied', { text }));
     },
-    async approve () {
+    async approve() {
       try {
         this.approving = true;
         const walletApi = await getWalletApi(this.nftData.fromWallet.name);
@@ -182,22 +172,23 @@ export default {
           tokenHash: this.nftData.assetHash,
           id: this.nftData.nft.TokenId,
         });
+        console.log(this.nftData);
       } finally {
         this.approving = false;
       }
     },
-    async getApproved () {
+    async getApproved() {
       const walletApi = await getWalletApi(this.nftData.fromWallet.name);
       this.nftData.needApproval = await walletApi.getNFTApproved({
         fromChainId: this.nftData.fromChainId,
         tokenHash: this.nftData.assetHash,
         id: this.nftData.nft.TokenId,
       });
-      console.log(this.needApproval)
+      console.log(this.needApproval);
     },
-    next () {
-      this.$emit('openConfirm')
-    }
+    next() {
+      this.$emit('openConfirm');
+    },
   },
 };
 </script>

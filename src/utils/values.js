@@ -132,10 +132,10 @@ export const CHAINS = [
     nativeFee: false,
     icon: require('@/assets/svg/neo.svg'),
     explorerUrl: TARGET_MAINNET
-      ? 'https://neotube.io/transaction/0x{txHash}'
+      ? 'https://neo3.neotube.io/transaction/{txHash}'
       : 'https://neo3.testnet.neotube.io/transaction/{txHash}',
     lockContractHash: TARGET_MAINNET
-      ? 'd63810ca692b43e0ed35bfa40e653d05b2cb3585'
+      ? 'f8328398c4c8e77b6c5843f5e404be0170d5012e'
       : 'd63810ca692b43e0ed35bfa40e653d05b2cb3585',
     nftFeeContractHash: 'd2a4cff31913016155e38e474a2c06d08be276cf',
     nftFeeName: 'GAS',
@@ -206,6 +206,9 @@ export const CHAINS = [
     lockContractHash: TARGET_MAINNET
       ? '0xB88f13682F3C602aCD84B4b2eEB96A9DD75Afd89'
       : '0xD5d63Dce45E0275Ca76a8b2e9BD8C11679A57D0D',
+    nftLockContractHash: TARGET_MAINNET
+      ? '0xeA5B2a0cF4cA9bd5c72Ea1fbEE1FFe420e57f692'
+      : '0xeA5B2a0cF4cA9bd5c72Ea1fbEE1FFe420e57f692',
     nftFeeContractHash: '0000000000000000000000000000000000000000',
     nftFeeName: 'MATIC',
   },

@@ -252,7 +252,7 @@ async function lock({
       chain.lockContractHash,
     );
     const toChainApi = await getChainApi(toChainId);
-    const toAddressHex = toChainApi.addressToHex(toAddress);
+    const toAddressHex = await toChainApi.addressToHex(toAddress);
     const amountInt = decimalToInteger(amount, tokenBasic.decimals);
     const feeInt = decimalToInteger(fee, chain.nftFeeName ? 18 : tokenBasic.decimals);
     const nativefeeInt =
