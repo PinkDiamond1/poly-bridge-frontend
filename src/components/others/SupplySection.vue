@@ -106,7 +106,7 @@ export default {
         {
           id: 6,
           imgsrc: 'phantasma.svg',
-          title: 'Phantasma PEPE12',
+          title: 'Phantasma PEPE11',
           availableAmount: '0',
           percentage: '0%',
         },
