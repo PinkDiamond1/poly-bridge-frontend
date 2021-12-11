@@ -22,7 +22,7 @@
             class="supplyItem__token__image"
             style="height: 30px; width: 30px; margin-right: 0.5rem"
           />
-          GM Available Supply: {{ availableSupplyCount }}
+          GM Circulating Supply: {{ availableSupplyCount }}
         </div>
       </div>
       <!-- eof supply heading -->
