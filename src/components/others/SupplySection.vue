@@ -4,9 +4,7 @@
     <div class="supplyHeadingWrapper">
       <!-- supply heading -->
       <div class="supplyHeading">
-        <div class="supplyHeading__title">
-          Token Distribution
-        </div>
+        <div class="supplyHeading__title">Token Distribution</div>
         <div class="supplyHeading__description">
           Live statistics on GM supply on each blockchain
         </div>
@@ -14,9 +12,17 @@
           <img
             :src="require(`@/assets/png/gm.png`)"
             class="supplyItem__token__image"
-            style="height: 30px; width: 30px; margin-right: 0.5rem;"
+            style="height: 30px; width: 30px; margin-right: 0.5rem"
           />
           GM Total Supply: {{ totalSupplyCount }}
+        </div>
+        <div class="supplyHeading__total">
+          <img
+            :src="require(`@/assets/png/gm.png`)"
+            class="supplyItem__token__image"
+            style="height: 30px; width: 30px; margin-right: 0.5rem"
+          />
+          GM Available Supply: {{ availableSupplyCount }}
         </div>
       </div>
       <!-- eof supply heading -->
@@ -27,15 +33,9 @@
       <!-- supply list -->
       <div class="supplyList">
         <div class="supplyList__header">
-          <div class="supplyList__header__item supplyList__header__item__first">
-            Blockchain
-          </div>
-          <div class="supplyList__header__item supplyList__header__item__second">
-            Supply
-          </div>
-          <div class="supplyList__header__item supplyList__header__item__third">
-            Percentage
-          </div>
+          <div class="supplyList__header__item supplyList__header__item__first">Blockchain</div>
+          <div class="supplyList__header__item supplyList__header__item__second">Supply</div>
+          <div class="supplyList__header__item supplyList__header__item__third">Percentage</div>
         </div>
         <!-- supply item -->
         <div v-for="token in supplyTokens" :key="token.id" class="supplyItem">
@@ -62,53 +62,71 @@
 
 <script>
 // :src="getImageSrc(token.imgsrc)"
+import { GMSupplyApi } from '@/utils/gmsupplyApi';
+
+function number(value, decimals) {
+  if (value === 0 || !value) {
+    return '0';
+  }
+  const parts = (decimals === undefined ? value.toString() : value.toFixed(decimals)).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return parts.join('.');
+}
+
 export default {
   name: 'SupplySection',
   data() {
     return {
-      totalSupplyCount: '100,000,000',
+      totalSupplyCount: '',
+      availableSupplyCount: '',
       supplyTokens: [
         {
           id: 1,
+          slug: 'bsc',
           imgsrc: 'bsc.svg',
           title: 'BSC ERC20',
-          availableAmount: '30,000,000',
-          percentage: '33%',
+          availableAmount: '',
+          percentage: '',
         },
         {
           id: 2,
+          slug: 'ethereum',
           imgsrc: 'eth.svg',
           title: 'Ethereum ERC20',
-          availableAmount: '0',
-          percentage: '0%',
+          availableAmount: '',
+          percentage: '',
         },
         {
           id: 3,
+          slug: 'avalanche',
           imgsrc: 'avalanche.svg',
           title: 'Avalanche ERC20',
-          availableAmount: '0',
-          percentage: '0%',
+          availableAmount: '',
+          percentage: '',
         },
         {
           id: 4,
+          slug: 'polygon',
           imgsrc: 'polygon.svg',
           title: 'Polygon ERC20',
-          availableAmount: '0',
-          percentage: '0%',
+          availableAmount: '',
+          percentage: '',
         },
         {
           id: 5,
+          slug: 'n3',
           imgsrc: 'neo.svg',
           title: 'Neo N3 NEP17',
-          availableAmount: '12,123,123',
-          percentage: '12.12%',
+          availableAmount: '',
+          percentage: '',
         },
         {
           id: 6,
+          slug: 'phantasma',
           imgsrc: 'phantasma.svg',
           title: 'Phantasma PEPE11',
-          availableAmount: '0',
-          percentage: '0%',
+          availableAmount: '',
+          percentage: '',
         },
       ],
     };
@@ -117,6 +135,24 @@ export default {
     getImageSrc(imgName) {
       return `${process.env.BASE_URL}assets/svg/${imgName}`;
     },
+  },
+  created() {
+    new GMSupplyApi({ baseUrl: 'https://api3.ghostmarket.io:7061/api/v1' })
+      .getGMSupply()
+      .then(res => {
+        const circulating = res.all_circulating_supply === 0 ? 1 : res.all_circulating_supply;
+        this.totalSupplyCount = number(res.all_total_supply, 0);
+        this.availableSupplyCount = number(res.all_circulating_supply, 0);
+        this.supplyTokens.forEach(token => {
+          try {
+            const tc = res[`${token.slug}_circulating_supply`];
+            token.availableAmount = number(tc, 0);
+            token.percentage = `${((100 * tc) / circulating).toFixed(2)}%`;
+          } catch (err) {
+            console.error(err);
+          }
+        });
+      });
   },
 };
 </script>
