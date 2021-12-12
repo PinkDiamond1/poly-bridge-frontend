@@ -73,7 +73,7 @@
             </div>
           </div>
 
-          <CButton :disabled="!toChainId" @click="exchangeFromTo">
+          <CButton :disabled="!toChainId" @click="exchangeFromTo" class="exchange-arrow">
             <img src="@/assets/svg/exchange.svg" />
           </CButton>
 
@@ -882,5 +882,13 @@ export default {
   .chevron-down {
     margin-top: -12px;
   }
+}
+.exchange-arrow {
+  &:hover {
+    opacity: 0.4;
+  }
+}
+[theme='light'] .exchange-arrow {
+  filter: invert(1);
 }
 </style>
