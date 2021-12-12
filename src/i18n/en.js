@@ -52,8 +52,7 @@ export default {
       connectWallet: 'Connect Wallet',
       historyPrefix: 'View your',
       historyLink: 'history',
-      approveInfinitytip:
-        'After checking, approve unlimited token usage, this behavior may be risky, please judge according to the actual situation',
+      approveInfinitytip: 'Approve unlimited token allowance.',
       approveInfinity: 'Approve Unlimited',
       maxamount: 'Max Amount',
       maxamountTooltip:
@@ -81,7 +80,7 @@ export default {
       fee: 'Fee',
       chainName: '{chainName} Blockchain',
       receiving: 'You will receive',
-      packing: 'Transaction is procesing on {chainName}. Please be patient...',
+      packing: 'Transaction is processing on {chainName}. Please be patient...',
       hash: 'Hash: {hash}',
     },
   },
@@ -165,6 +164,7 @@ export default {
       // [ChainId.Palette]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
       [ChainId.Eth]: TARGET_MAINNET ? 'MainNet' : 'Ropsten TestNet',
       [ChainId.Neo]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
+      [ChainId.N3]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
       // [ChainId.xDai]: TARGET_MAINNET ? 'MainNet' : 'TestNet',
       [ChainId.Bsc]: TARGET_MAINNET ? 'BSC MainNet' : 'BSC TestNet',
       // [ChainId.Heco]: TARGET_MAINNET ? 'Heco MainNet' : 'Heco TestNet',
