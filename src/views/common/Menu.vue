@@ -1,5 +1,14 @@
 <template>
   <div class="menu">
+    <CLink class="item" @click="goGovernance" target="_self">
+      Governance
+    </CLink>
+    <CLink class="item" @click="goVesting" target="_blank">
+      Vesting
+    </CLink>
+    <CLink class="item" style="margin-right:10px;" @click="goGM" target="_blank">
+      GhostMarket
+    </CLink>
     <Wallets />
     <!--<CLink @click="goAudit" class="item" target="_self">
       {{ $t('common.menu.audit') }}
@@ -47,6 +56,15 @@ export default {
     goAudit() {
       window.open('https://github.com/polynetwork/audit-report');
     },
+    goGovernance() {
+      window.open('https://governance.ghostmarket.io');
+    },
+    goVesting() {
+      window.open('https://vesting.ghostmarket.io');
+    },
+    goGM() {
+      window.open('https://bridge.ghostmarket.io');
+    },
   },
 };
 </script>
@@ -73,7 +91,7 @@ export default {
   .item:hover {
     color: #fff;
     transition: all ease 0.3s;
-    background-color: var(--color-primary);
+    color: var(--color-primary);
   }
   .active {
     color: var(--color-primary);
