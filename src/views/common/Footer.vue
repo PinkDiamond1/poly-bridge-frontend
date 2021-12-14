@@ -1,23 +1,23 @@
 <template>
   <div class="footer">
     <div class="top">
-      <CLink href="https://github.com/onblockio" target="_blank" class="footer-social-link">
-        <img src="@/assets/svg/github.svg" />
-      </CLink>
-      <CLink href="https://discord.gg/THHTS4F" target="_blank" class="footer-social-link">
-        <img src="@/assets/svg/discord.svg" />
-      </CLink>
       <CLink href="https://t.me/ghostmarketio" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/telegram.svg" />
       </CLink>
-      <CLink href="mailto:hello@pghostmarket.io" target="_blank" class="footer-social-link">
-        <img src="@/assets/svg/email.svg" />
+      <CLink href="https://discord.gg/THHTS4F" target="_blank" class="footer-social-link">
+        <img src="@/assets/svg/discord.svg" />
       </CLink>
       <CLink href="https://twitter.com/ghostmarketio" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/twitter.svg" />
       </CLink>
       <CLink href="https://medium.com/ghostmarket" target="_blank" class="footer-social-link">
         <img src="@/assets/svg/medium.svg" />
+      </CLink>
+      <CLink href="https://github.com/onblockio" target="_blank" class="footer-social-link">
+        <img src="@/assets/svg/github.svg" />
+      </CLink>
+      <CLink href="mailto:hello@ghostmarket.io" target="_blank" class="footer-social-link">
+        <img src="@/assets/svg/email.svg" />
       </CLink>
     </div>
     <div class="bottom">
