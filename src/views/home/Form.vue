@@ -225,6 +225,23 @@
       <CLink class="link" :to="{ name: 'transactions' }">{{ $t('home.form.historyLink') }}</CLink>
     </div>
 
+    <div style="margin:2rem auto;">
+      <div style="display:flex;justify-content:center;">
+        <span>Add GM to Metamask</span>
+        <img src="@/assets/svg/meta-mask.svg" style="margin-left:10px;height:20px;width:20px" />
+      </div>
+      <div>
+        <CLink class="link" @click="addToMetamask('bsc')" style="margin:0.5rem;">GM BSC</CLink>
+        <CLink class="link" @click="addToMetamask('eth')" style="margin:0.5rem;">GM Ethereum</CLink>
+        <CLink class="link" @click="addToMetamask('polygon')" style="margin:0.5rem;"
+          >GM Polygon</CLink
+        >
+        <CLink class="link" @click="addToMetamask('avalanche')" style="margin:0.5rem;"
+          >GM Avalanche</CLink
+        >
+      </div>
+    </div>
+
     <SelectTokenBasic
       :visible.sync="selectTokenBasicVisible"
       :tokenBasicName="tokenBasicName"
@@ -515,6 +532,35 @@ export default {
     clearInterval(this.interval);
   },
   methods: {
+    async addToMetamask(chain) {
+      let tokenAddress = '';
+      const isMainnet = false;
+      if (chain === 'bsc' && isMainnet === true) tokenAddress = '';
+      if (chain === 'bsc') tokenAddress = '0xf3fd0f360ace3b0e83843221a763fec857291060';
+      if (chain === 'eth' && isMainnet === true) tokenAddress = '';
+      if (chain === 'eth') tokenAddress = '0x26D583e2CDa958b13CC319FAd124aa729f8A196e';
+      if (chain === 'polygon' && isMainnet === true) tokenAddress = '';
+      if (chain === 'polygon') tokenAddress = '0x957404188EA8804eFF6dc052e6B35c58aE351357';
+      if (chain === 'avalanche' && isMainnet === true) tokenAddress = '';
+      if (chain === 'avalanche') tokenAddress = '0x7D35e9D90bD91BA82dAe43d7e03cF1e04c14aea8';
+      const win = window;
+      const tokenSymbol = 'GM';
+      const tokenDecimals = 8;
+      const tokenImage = 'https://governance.ghostmarket.io/images/gm.png';
+      const call = win.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          options: {
+            address: tokenAddress, // The address that the token is at.
+            symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: tokenDecimals, // The number of decimals in the token
+            image: tokenImage, // A string url of the token logo
+          },
+        },
+      });
+      return call;
+    },
     changeTokenBasicName(tokenBasicName) {
       this.tokenBasicName = tokenBasicName;
       this.fromChainId = null;
