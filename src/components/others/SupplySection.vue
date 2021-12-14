@@ -217,7 +217,8 @@ export default {
       display: flex;
       justify-content: center;
       &__first {
-        width: 45%;
+        justify-content: start;
+        width: 30%;
       }
       &__second {
         width: 25%;
@@ -241,8 +242,8 @@ export default {
   &__token {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 45%;
+    justify-content: flex-start;
+    width: 30%;
     &__image {
       width: 20px;
       height: 20px;

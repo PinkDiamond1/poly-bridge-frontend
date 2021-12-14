@@ -140,10 +140,10 @@ export default {
       [WalletName.WalletConnect]: 'WalletConnect',
     },
     chainName: {
-      [ChainId.Poly]: 'Poly',
+      [ChainId.Poly]: 'Poly Network',
       [ChainId.Eth]: 'Ethereum',
       [ChainId.Neo]: 'Neo',
-      [ChainId.N3]: 'N3',
+      [ChainId.N3]: 'Neo N3',
       // [ChainId.xDai]: 'xDai',
       [ChainId.Bsc]: 'BSC',
       // [ChainId.Heco]: 'Heco',
