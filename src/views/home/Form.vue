@@ -230,15 +230,11 @@
         <span>Add GM to Metamask</span>
         <img src="@/assets/svg/meta-mask.svg" style="margin-left:10px;height:20px;width:20px" />
       </div>
-      <div>
-        <CLink class="link" @click="addToMetamask('bsc')" style="margin:0.5rem;">GM BSC</CLink>
-        <CLink class="link" @click="addToMetamask('eth')" style="margin:0.5rem;">GM Ethereum</CLink>
-        <CLink class="link" @click="addToMetamask('polygon')" style="margin:0.5rem;"
-          >GM Polygon</CLink
-        >
-        <CLink class="link" @click="addToMetamask('avalanche')" style="margin:0.5rem;"
-          >GM Avalanche</CLink
-        >
+      <div class="metamask-links">
+        <CLink class="link" @click="addToMetamask('bsc')">GM BSC</CLink>
+        <CLink class="link" @click="addToMetamask('eth')">GM Ethereum</CLink>
+        <CLink class="link" @click="addToMetamask('polygon')">GM Polygon</CLink>
+        <CLink class="link" @click="addToMetamask('avalanche')">GM Avalanche</CLink>
       </div>
     </div>
 
@@ -666,6 +662,17 @@ export default {
 };
 </script>
 <style>
+.metamask-links a {
+  margin: 0.5rem;
+}
+@media screen and (max-width: 900px) {
+  .metamask-links {
+    text-align: center;
+  }
+  .metamask-links a {
+    display: block;
+  }
+}
 .el-checkbox__inner {
   background-color: rgba(0, 0, 0, 0);
   border-color: #606266;
