@@ -160,15 +160,20 @@ export default {
     async approve() {
       try {
         this.approving = true;
+        let nftspender = this.fromChain.nftLockContractHash;
+        if (this.fromChain.id === 2 && this.toChain.id === 8) {
+          nftspender = this.fromChain.pltNftLockContractHash;
+        }
         const walletApi = await getWalletApi(this.nftData.fromWallet.name);
         await walletApi.nftApprove({
           address: this.nftData.fromWallet.address,
           tokenHash: this.nftData.assetHash,
-          spender: this.fromChain.nftLockContractHash,
+          spender: nftspender,
           id: this.nftData.nft.TokenId,
         });
         this.nftData.needApproval = await walletApi.getNFTApproved({
           fromChainId: this.nftData.fromChainId,
+          toChainId: this.nftData.toChainId,
           tokenHash: this.nftData.assetHash,
           id: this.nftData.nft.TokenId,
         });
