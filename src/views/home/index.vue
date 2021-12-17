@@ -33,6 +33,9 @@ export default {
   min-width: 1440px;
   background-image: var(--background-image);
 }
+[theme='dark'] .home {
+  background: var(--background-color-base);
+}
 
 .top-decoration {
   position: absolute;
