@@ -284,6 +284,7 @@ import { DEFAULT_TOKEN_BASIC_NAME } from '@/utils/values';
 import { ChainId } from '@/utils/enums';
 import TransactionDetails from '@/views/transactions/Details';
 import { getWalletApi } from '@/utils/walletApi';
+import { Message } from 'element-ui';
 import SelectTokenBasic from './SelectTokenBasic';
 import SelectChain from './SelectChain';
 import ConnectWallet from './ConnectWallet';
@@ -529,6 +530,9 @@ export default {
   },
   methods: {
     async addToMetamask(chain) {
+      Message({ message: 'Not available yet', type: 'error', duration: 5000 });
+      return false;
+      /*
       let tokenAddress = '';
       const isMainnet = false;
       if (chain === 'bsc' && isMainnet === true) tokenAddress = '';
@@ -556,6 +560,7 @@ export default {
         },
       });
       return call;
+      */
     },
     changeTokenBasicName(tokenBasicName) {
       this.tokenBasicName = tokenBasicName;
