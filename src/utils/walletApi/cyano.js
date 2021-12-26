@@ -21,12 +21,13 @@ const NETWORK_CHAIN_ID_MAPS = {
   [TARGET_MAINNET ? 'MAIN' : 'TEST']: ChainId.Ont,
 };
 
-function convertWalletError (error) {
+function convertWalletError (error) {  
   if (error instanceof WalletError) {
     return error;
   }
   let code = '';
-  switch (error.type) {
+  const type = error.type ? error.type : error
+  switch (type) {
     case 'NO_PROVIDER':
       code = WalletError.CODES.NOT_INSTALLED;
       break;
@@ -243,7 +244,7 @@ async function lock ({
     const toChainApi = await getChainApi(toChainId);
     const fromChainApi = await getChainApi(fromChainId);
     const fromAddressHex = fromChainApi.addressToHex(fromAddress);
-    const toAddressHex = toChainApi.addressToHex(toAddress);
+    const toAddressHex = await toChainApi.addressToHex(toAddress);
     const amountInt = decimalToInteger(amount, tokenBasic.decimals);
     const feeInt = decimalToInteger(fee, tokenBasic.decimals);
     const hexChainid = utils.num2VarInt(toChainId)

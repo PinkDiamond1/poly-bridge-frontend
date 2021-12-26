@@ -7,7 +7,7 @@ module.exports = {
   chainWebpack: config => {
     config.devtool(!IN_PRODUCTION ? 'source-map' : false);
 
-    if (IN_PRODUCTION) {
+    /* if (IN_PRODUCTION) {
       config.plugin('cdn').use(WebpackCdnPlugin, [
         {
           modules: [
@@ -20,7 +20,7 @@ module.exports = {
           publicPath: process.env.VUE_APP_PUBLIC_PATH,
         },
       ]);
-    }
+    } */
   },
   pluginOptions: {
     i18n: {
