@@ -482,6 +482,7 @@ export default {
         tokenHash: this.itemHash,
         id: item.TokenId,
       });
+      this.toChainId = null;
       this.nftData = {
         fromChainId: this.fromChainId,
         toChains: this.toChains,
@@ -489,7 +490,7 @@ export default {
         nft: item,
         assetHash: this.itemHash,
         fromWallet: this.fromWallet,
-        toWallet: this.toWallet,
+        toWallet: null,
         needApproval: Approval,
       };
       this.detailVisible = true;
