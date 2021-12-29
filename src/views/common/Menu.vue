@@ -63,7 +63,7 @@ export default {
       window.open('https://vesting.ghostmarket.io');
     },
     goGM() {
-      window.open('https://bridge.ghostmarket.io');
+      window.open('https://ghostmarket.io');
     },
   },
 };
