@@ -15,7 +15,7 @@ export const ChainId = {
   Poly: 0,
   Eth: 2,
   // Ont: 3,
-  Neo: TARGET_MAINNET ? 4 : 5,
+  // Neo: TARGET_MAINNET ? 4 : 5,
   N3: TARGET_MAINNET ? 14 : 88,
   // xDai: TARGET_MAINNET ? 20 : 206,
   Bsc: TARGET_MAINNET ? 6 : 79,
@@ -27,6 +27,7 @@ export const ChainId = {
   // Optimistic: TARGET_MAINNET ? 23 : 210,
   // Fantom: TARGET_MAINNET ? 22 : 208,
   Avalanche: TARGET_MAINNET ? 21 : 209,
+  // Metis: TARGET_MAINNET ? 24 : 300,
 };
 
 export const SingleTransactionStatus = {

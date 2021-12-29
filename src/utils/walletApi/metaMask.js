@@ -23,6 +23,7 @@ const NETWORK_CHAIN_ID_MAPS = {
   // [TARGET_MAINNET ? 10 : 69]: ChainId.Optimistic,
   // [TARGET_MAINNET ? 250 : 4002]: ChainId.Fantom,
   [TARGET_MAINNET ? 43114 : 43113]: ChainId.Avalanche,
+  // [TARGET_MAINNET ? 1088 : 588]: ChainId.Metis,
 };
 
 let web3;
@@ -154,6 +155,7 @@ async function getAllowance({ chainId, address, tokenHash, spender }) {
     }
     const tokenContract = new web3.eth.Contract(require('@/assets/json/eth-erc20.json'), tokenHash);
     const result = await tokenContract.methods.allowance(address, `0x${spender}`).call();
+    console.log(integerToDecimal(result, tokenBasic.decimals));
     return integerToDecimal(result, tokenBasic.decimals);
   } catch (error) {
     throw convertWalletError(error);
@@ -251,7 +253,6 @@ async function lock({
       chainId: fromChainId,
       tokenHash: fromTokenHash,
     });
-
     const lockContract = new web3.eth.Contract(
       require('@/assets/json/eth-lock.json'),
       chain.lockContractHash,
