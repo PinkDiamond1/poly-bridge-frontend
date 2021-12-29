@@ -28,7 +28,7 @@ export const WALLETS = [
       // ChainId.Optimistic,
       // ChainId.Fantom,
       ChainId.Avalanche,
-      ChainId.Metis,
+      // ChainId.Metis,
     ],
     icon: require('@/assets/svg/meta-mask.svg'),
     downloadUrl:
