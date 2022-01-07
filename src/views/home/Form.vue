@@ -531,7 +531,7 @@ export default {
   methods: {
     async addToMetamask(chain) {
       let tokenAddress = '';
-      const isMainnet = false;
+      const isMainnet = true;
       if (chain === 'bsc' && isMainnet === true)
         tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
       if (chain === 'bsc') tokenAddress = '0xf3fd0f360ace3b0e83843221a763fec857291060';
