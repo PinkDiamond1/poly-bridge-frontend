@@ -532,18 +532,22 @@ export default {
     async addToMetamask(chain) {
       let tokenAddress = '';
       const isMainnet = true;
-      if (chain === 'bsc' && isMainnet === true)
-        tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
-      if (chain === 'bsc') tokenAddress = '0xf3fd0f360ace3b0e83843221a763fec857291060';
-      if (chain === 'eth' && isMainnet === true)
-        tokenAddress = '0x35609dC59E15d03c5c865507e1348FA5abB319A8';
-      if (chain === 'eth') tokenAddress = '0x26D583e2CDa958b13CC319FAd124aa729f8A196e';
-      if (chain === 'polygon' && isMainnet === true)
-        tokenAddress = '0x6a335AC6A3cdf444967Fe03E7b6B273c86043990';
-      if (chain === 'polygon') tokenAddress = '0x957404188EA8804eFF6dc052e6B35c58aE351357';
-      if (chain === 'avalanche' && isMainnet === true)
-        tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
-      if (chain === 'avalanche') tokenAddress = '0x7D35e9D90bD91BA82dAe43d7e03cF1e04c14aea8';
+      if (chain === 'bsc') {
+        if (isMainnet) tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
+        else tokenAddress = '0xf3fd0f360ace3b0e83843221a763fec857291060';
+      }
+      if (chain === 'eth') {
+        if (isMainnet) tokenAddress = '0x35609dC59E15d03c5c865507e1348FA5abB319A8';
+        else tokenAddress = '0x26D583e2CDa958b13CC319FAd124aa729f8A196e';
+      }
+      if (chain === 'polygon') {
+        if (isMainnet) tokenAddress = '0x6a335AC6A3cdf444967Fe03E7b6B273c86043990';
+        else tokenAddress = '0x957404188EA8804eFF6dc052e6B35c58aE351357';
+      }
+      if (chain === 'avalanche') {
+        if (isMainnet) tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
+        else tokenAddress = '0x7D35e9D90bD91BA82dAe43d7e03cF1e04c14aea8';
+      }
       const win = window;
       const tokenSymbol = 'GM';
       const tokenDecimals = 8;
