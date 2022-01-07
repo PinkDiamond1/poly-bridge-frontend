@@ -143,7 +143,7 @@ export default {
     },
   },
   created() {
-    const isMainnet = true;
+    const isMainnet = false;
     const baseUrl = isMainnet
       ? 'https://api.ghostmarket.io/api/v1'
       : 'https://api3.ghostmarket.io:7061/api/v1';
