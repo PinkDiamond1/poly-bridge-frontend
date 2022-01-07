@@ -530,10 +530,6 @@ export default {
   },
   methods: {
     async addToMetamask(chain) {
-      if (chain === 'polygon') {
-        Message({ message: 'Not available yet', type: 'error', duration: 5000 });
-        return false;
-      }
       let tokenAddress = '';
       const isMainnet = false;
       if (chain === 'bsc' && isMainnet === true)
@@ -543,7 +539,7 @@ export default {
         tokenAddress = '0x35609dC59E15d03c5c865507e1348FA5abB319A8';
       if (chain === 'eth') tokenAddress = '0x26D583e2CDa958b13CC319FAd124aa729f8A196e';
       if (chain === 'polygon' && isMainnet === true)
-        tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
+        tokenAddress = '0x6a335AC6A3cdf444967Fe03E7b6B273c86043990';
       if (chain === 'polygon') tokenAddress = '0x957404188EA8804eFF6dc052e6B35c58aE351357';
       if (chain === 'avalanche' && isMainnet === true)
         tokenAddress = '0x0B53b5dA7d0F275C31a6A182622bDF02474aF253';
