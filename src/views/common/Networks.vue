@@ -1,9 +1,7 @@
 <template>
   <CLink
     class="item"
-    :href="
-      mainnet ? 'https://bridge-testnet.ghostmarket.io/testnet' : 'https://bridge.ghostmarket.io'
-    "
+    :href="mainnet ? 'https://bridge-testnet.ghostmarket.io' : 'https://bridge.ghostmarket.io'"
     target="_self"
   >
     {{ mainnet ? $t('common.networks.mainnet') : $t('common.networks.testnet') }}
