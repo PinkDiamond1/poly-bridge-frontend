@@ -270,6 +270,7 @@ async function lock({
         .lock(`0x${fromTokenHash}`, toChainId, `0x${toAddressHex}`, amountInt, feeInt, 0)
         .send({
           from: fromAddress,
+          gas: fromChainId === 24 ? 2000000 : null,
           value:
             fromTokenHash === '0000000000000000000000000000000000000000' ? amountInt : nativefeeInt,
         }),
