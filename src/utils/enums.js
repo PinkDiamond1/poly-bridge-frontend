@@ -22,7 +22,7 @@ export const ChainId = {
   // Heco: 7,
   // Ok: TARGET_MAINNET ? 12 : 200,
   // Palette: TARGET_MAINNET ? 8 : 107,
-  // Polygon: TARGET_MAINNET ? 17 : 202,
+  Polygon: TARGET_MAINNET ? 17 : 202,
   // Arbitrum: TARGET_MAINNET ? 19 : 205,
   // Optimistic: TARGET_MAINNET ? 23 : 210,
   // Fantom: TARGET_MAINNET ? 22 : 208,
