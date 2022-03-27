@@ -16,7 +16,7 @@ export const ChainId = {
   // Eth: 2,
   // Ont: 3,
   // Neo: TARGET_MAINNET ? 4 : 5,
-  // N3: TARGET_MAINNET ? 14 : 88,
+  N3: TARGET_MAINNET ? 14 : 88,
   // xDai: TARGET_MAINNET ? 20 : 206,
   Bsc: TARGET_MAINNET ? 6 : 79,
   // Heco: 7,
