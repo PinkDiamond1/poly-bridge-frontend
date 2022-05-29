@@ -5,9 +5,9 @@
         <img
           v-if="darkMode"
           class="brand-logo"
-          src="https://ghostmarket.io/brand/dark-logo-oneline.svg"
+          src="https://cdn.ghostmarket.io/brands/gm-dark-logo-oneline.svg"
         />
-        <img v-else class="brand-logo" src="https://ghostmarket.io/brand/light-logo-oneline.svg" />
+        <img v-else class="brand-logo" src="https://cdn.ghostmarket.io/brands/gm-light-logo-oneline.svg" />
         <!--<span class="brand-name">
           {{ $t('common.header.brandName') }}
         </span>-->
