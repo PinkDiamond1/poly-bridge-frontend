@@ -1,7 +1,14 @@
 <template>
-  <CDrawer v-bind="$attrs" v-on="$listeners">
+  <CDialog v-bind="$attrs" v-on="$listeners">
     <div class="content">
-      <div class="title">{{ $t('home.selectChain.title') }}</div>
+      <div class="title">
+        {{ $t('home.selectChain.title') }}
+        <img
+          class="close-btn"
+          src="@/assets/svg/close.svg"
+          @click="$emit('update:visible', false)"
+        />
+      </div>
       <CDivider />
       <div class="scroll">
         <div v-for="chain in chains" :key="chain.id" class="chain" @click="select(chain)">
@@ -13,7 +20,7 @@
         </div>
       </div>
     </div>
-  </CDrawer>
+  </CDialog>
 </template>
 
 <script>
@@ -38,19 +45,33 @@ export default {
   display: flex;
   flex-direction: column;
   width: 500px;
+  padding: 40px;
   height: 100vh;
   background: #171f31;
   box-shadow: 0px 2px 18px 7px rgba(#000000, 0.1);
 }
 
 .title {
-  padding: 80px 50px 20px;
+  font-size: 24px;
+  line-height: 36px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .close-btn {
+    width: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 .scroll {
   flex: 1;
-  padding: 16px 10px;
+  padding: 16px 0px;
   overflow-y: auto;
   @include scroll-bar(rgba(#fff, 0.2), transparent);
 }
@@ -61,7 +82,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   height: 56px;
-  padding: 0 40px;
+  padding: 0 20px;
   transition: all 0.3s;
   @include child-margin-h(16px);
 
@@ -79,5 +100,13 @@ export default {
 
 .chain-icon {
   width: 24px;
+}
+
+@media screen and (max-width: 900px) {
+  .content {
+    width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 }
 </style>

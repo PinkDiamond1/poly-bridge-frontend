@@ -1,5 +1,5 @@
 <template>
-  <CDrawer v-bind="$attrs" v-on="$listeners">
+  <CDialog v-bind="$attrs" v-on="$listeners">
     <div class="content">
       <div class="header">
         <div class="title">{{ $t('home.selectTokenBasic.title') }}</div>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-  </CDrawer>
+  </CDialog>
 </template>
 
 <script>

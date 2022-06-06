@@ -1,8 +1,14 @@
 import Web3 from 'web3';
 import store from '@/store';
 import { getChainApi } from '@/utils/chainApi';
-import { integerToDecimal, decimalToInteger, toStandardHex } from '@/utils/convertors';
-import { WalletName, ChainId, SingleTransactionStatus } from '@/utils/enums';
+import {
+  integerToDecimal,
+  decimalToInteger,
+  toStandardHex,
+  integerToHex,
+  reverseHex,
+} from '@/utils/convertors';
+import { WalletName, ChainId, SingleTransactionStatus, EthNetworkChainIdMaps } from '@/utils/enums';
 import { WalletError } from '@/utils/errors';
 import { TARGET_MAINNET } from '@/utils/env';
 import { tryToConvertAddressToHex } from '.';
@@ -16,6 +22,8 @@ const NETWORK_CHAIN_ID_MAPS = {
   [TARGET_MAINNET ? 128 : 256]: ChainId.Heco,
   [TARGET_MAINNET ? 66 : 65]: ChainId.Ok,
 };
+
+const ETH_NETWORK_CHAIN_ID_MAPS = EthNetworkChainIdMaps;
 
 let web3;
 
@@ -207,7 +215,32 @@ async function getNFTApproved({ fromChainId, tokenHash, id }) {
     throw convertWalletError(error);
   }
 }
+async function sendSelfPayTx({ data, toAddress, toChainId }) {
+  try {
+    const txdata = data;
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const address = accounts[0] || null;
+    const toEthChainID = ETH_NETWORK_CHAIN_ID_MAPS[toChainId];
+    const transactionParameters = {
+      nonce: '0x00', // ignored by MetaMask
+      // gasPrice: `0x${reverseHex(integerToHex(1000000))}`, // customizable by user during MetaMask confirmation.
+      // gas: `0x${reverseHex(integerToHex(400000))}`, // customizable by user during MetaMask confirmation.
+      to: toAddress, // Required except during contract publications.
+      from: address, // must match user's active address.
+      value: '0x00', // Only required to send ether to the recipient from the initiating external account.
+      data: txdata, // Optional, but used for defining smart contract creation and interaction.
+      chainId: `0x${reverseHex(integerToHex(toEthChainID))}`, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+    };
 
+    const txHash = await window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [transactionParameters],
+    });
+    return txHash;
+  } catch (error) {
+    throw convertWalletError(error);
+  }
+}
 async function lock({
   fromChainId,
   fromAddress,
@@ -299,4 +332,5 @@ export default {
   nftApprove,
   getTotalSupply,
   getNFTApproved,
+  sendSelfPayTx,
 };

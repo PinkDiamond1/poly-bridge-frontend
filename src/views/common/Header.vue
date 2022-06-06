@@ -7,7 +7,11 @@
           class="brand-logo"
           src="https://cdn.ghostmarket.io/brands/gm-dark-logo-oneline.svg"
         />
-        <img v-else class="brand-logo" src="https://cdn.ghostmarket.io/brands/gm-light-logo-oneline.svg" />
+        <img
+          v-else
+          class="brand-logo"
+          src="https://cdn.ghostmarket.io/brands/gm-light-logo-oneline.svg"
+        />
         <!--<span class="brand-name">
           {{ $t('common.header.brandName') }}
         </span>-->
@@ -17,7 +21,7 @@
       <Menu class="menu" />
 
       <!-- mobile header -->
-      <div class="header-mobile" style="display:none">
+      <div class="header-mobile" style="display: none">
         <Wallets />
         <ToggleTheme />
       </div>

@@ -6,7 +6,10 @@
     </div>
     <div class="content">
       <div class="content-inner">
-        <div class="title">{{ $t('transactions.index.title') }}</div>
+        <div class="title">
+          <!-- <CLink class="back" :to="{ name: 'home' }"><i class="el-icon-back"></i> Back</CLink> -->
+          <span>{{ $t('transactions.index.title') }}</span>
+        </div>
 
         <div class="table-wrapper">
           <ElTable :data="transactions.items" class="table">
@@ -74,13 +77,13 @@
               min-width="120"
               :label="$t('transactions.index.amount')"
             >
-              <div style="display: flex;">
-                <img class="chain-icon" src="@/assets/png/gm.png" style="margin-right:5px;" />
+              <div style="display: flex">
+                <img class="chain-icon" src="@/assets/png/gm.png" style="margin-right: 5px" />
                 {{ $formatNumber(row.amount) }} {{ row.tokenBasicName }}
               </div>
             </ElTableColumn>
             <ElTableColumn #default="{ row }" min-width="120" :label="$t('transactions.index.fee')">
-              {{ $formatNumber(row.fee) }} {{ row.txfeeToken.name }}
+              {{ $formatNumber(row.fee) }} {{ row.txfeeToken ? row.txfeeToken.name : '' }}
             </ElTableColumn>
             <!-- <ElTableColumn :label="$t('transactions.index.asset')"
                            prop="tokenBasicName" /> -->
@@ -140,6 +143,11 @@ export default {
       transactionHash: null,
       page: 1,
       pageSize: 10,
+      transactions: {
+        items: [],
+        pageCount: 0,
+        total: 0,
+      },
     };
   },
   computed: {
@@ -156,8 +164,7 @@ export default {
         vary: ['pageSize'],
       };
     },
-    transactions() {
-      console.log(this.$store.getters.getTransactions(this.getTransactionsParams));
+    netTransactions() {
       return this.$store.getters.getTransactions(this.getTransactionsParams) || {};
     },
   },
@@ -169,6 +176,15 @@ export default {
         }
       },
       immediate: true,
+    },
+    netTransactions(value, oldValue) {
+      if (oldValue.items) {
+        if (value.total >= this.transactions.total) {
+          this.transactions = value;
+        }
+      } else {
+        this.transactions = value;
+      }
     },
   },
   methods: {

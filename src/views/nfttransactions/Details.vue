@@ -1,21 +1,28 @@
 <template>
-  <CDrawer v-bind="$attrs"
-           :closeOnClickModal="!confirmingData || failed || finished"
-           :closeOnPressEscape="!confirmingData || failed || finished"
-           v-on="$listeners">
+  <CDialog
+    v-bind="$attrs"
+    :closeOnClickModal="!confirmingData || failed || finished"
+    :closeOnPressEscape="!confirmingData || failed || finished"
+    v-on="$listeners"
+  >
     <div class="content">
-      <div class="title">{{ $t('transactions.details.title') }}</div>
-      <div v-if="steps"
-           class="scroll">
-        <div v-for="(step, index) in steps"
-             :key="step.chainId"
-             class="step">
+      <div class="title">
+        {{ $t('transactions.details.title') }}
+        <img
+          class="close-btn"
+          src="@/assets/svg/close.svg"
+          @click="$emit('update:visible', false)"
+        />
+      </div>
+      <div v-if="steps" class="scroll">
+        <div v-for="(step, index) in steps" :key="step.chainId" class="step">
           <template v-if="step.chainId != null">
-            <img class="step-icon"
-                 :class="{ [getStepStatus(index)]: true }"
-                 :src="statusIcons[getStepStatus(index)]" />
-            <div v-if="index !== steps.length - 1"
-                 class="step-line" />
+            <img
+              class="step-icon"
+              :class="{ [getStepStatus(index)]: true }"
+              :src="statusIcons[getStepStatus(index)]"
+            />
+            <div v-if="index !== steps.length - 1" class="step-line" />
             <div class="step-title">{{ $formatEnum(step.chainId, { type: 'chainName' }) }}</div>
             <div class="description">
               {{
@@ -25,9 +32,11 @@
               }}
             </div>
             <div class="progress">
-              <ElProgress class="progress-bar"
-                          :percentage="(step.blocks / step.needBlocks || 0) * 100"
-                          :showText="false" />
+              <ElProgress
+                class="progress-bar"
+                :percentage="(step.blocks / step.needBlocks || 0) * 100"
+                :showText="false"
+              />
               <span class="progress-text">
                 {{
                   $t('transactions.details.confirmation', {
@@ -37,52 +46,50 @@
                 }}
               </span>
             </div>
-            <CLink class="link"
-                   :href="$format(getChain(step.chainId).nftexplorerUrl, { txHash: step.hash })"
-                   target="_blank"
-                   :disabled="!step.hash">
+            <CLink
+              class="link"
+              :href="$format(getChain(step.chainId).nftexplorerUrl, { txHash: step.hash })"
+              target="_blank"
+              :disabled="!step.hash"
+            >
               {{
                 $t('transactions.details.hash', {
-                  hash: $formatLongText(step.hash || 'N/A', { headTailLength: 16 }),
+                  hash: $formatLongText(step.hash || 'N/A', { headTailLength: 8 }),
                 })
               }}
             </CLink>
+            <CButton v-if="step.hash" @click="copy(step.hash)">
+              <img class="copy-icon" src="@/assets/svg/copy.svg" />
+            </CButton>
           </template>
 
           <template v-else-if="step.failed">
-            <img class="step-icon failed"
-                 src="@/assets/svg/status-failed.svg" />
-            <div v-if="index !== steps.length - 1"
-                 class="step-line" />
+            <img class="step-icon failed" src="@/assets/svg/status-failed.svg" />
+            <div v-if="index !== steps.length - 1" class="step-line" />
             <div class="failed-title">{{ $t('transactions.details.failedTitle') }}</div>
-            <CLink v-if="confirmingData"
-                   class="link"
-                   :to="{ name: 'nfttransactions' }">
+            <CLink v-if="confirmingData" class="link" :to="{ name: 'nfttransactions' }">
               {{ $t('transactions.details.gotoHistory') }}
             </CLink>
           </template>
 
           <template v-else-if="step.finished">
-            <img class="step-icon succeeded"
-                 src="@/assets/svg/status-succeeded.svg" />
-            <div v-if="index !== steps.length - 1"
-                 class="step-line" />
+            <img class="step-icon succeeded" src="@/assets/svg/status-succeeded.svg" />
+            <div v-if="index !== steps.length - 1" class="step-line" />
             <div class="finished-title">{{ $t('transactions.details.finishedTitle') }}</div>
-            <CLink v-if="confirmingData"
-                   class="link"
-                   :to="{ name: 'nfttransactions' }">
+            <CLink v-if="confirmingData" class="link" :to="{ name: 'nfttransactions' }">
               {{ $t('transactions.details.gotoHistory') }}
             </CLink>
           </template>
         </div>
       </div>
     </div>
-  </CDrawer>
+  </CDialog>
 </template>
 
 <script>
 import { ChainId, SingleTransactionStatus, TransactionStatus } from '@/utils/enums';
 import { HttpError } from '@/utils/errors';
+import copy from 'clipboard-copy';
 
 export default {
   name: 'Details',
@@ -92,13 +99,13 @@ export default {
     confirmingData: Object,
   },
   computed: {
-    mergedHash () {
+    mergedHash() {
       return this.hash || (this.confirmingData && this.confirmingData.transactionHash);
     },
-    transaction () {
+    transaction() {
       return this.$store.getters.getNftTransaction(this.mergedHash);
     },
-    mergedTransaction () {
+    mergedTransaction() {
       return (
         this.transaction ||
         (this.confirmingData && {
@@ -117,7 +124,7 @@ export default {
         })
       );
     },
-    steps () {
+    steps() {
       if (!this.mergedTransaction) {
         return null;
       }
@@ -130,19 +137,19 @@ export default {
       }
       return steps;
     },
-    failed () {
+    failed() {
       return (
         !!this.confirmingData &&
         this.confirmingData.transactionStatus === SingleTransactionStatus.Failed
       );
     },
-    finished () {
+    finished() {
       return !!this.transaction && this.transaction.status === TransactionStatus.Finished;
     },
-    closeable () {
+    closeable() {
       return !this.confirmingData || this.failed || this.finished;
     },
-    statusIcons () {
+    statusIcons() {
       return {
         waiting: require('@/assets/svg/status-waiting.svg'),
         pending: require('@/assets/svg/status-pending.svg'),
@@ -152,23 +159,27 @@ export default {
     },
   },
   watch: {
-    mergedHash () {
+    mergedHash() {
       this.getNftTransaction();
     },
   },
-  created () {
+  created() {
     this.interval = setInterval(() => {
       this.getNftTransaction();
     }, 5000);
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.interval);
   },
   methods: {
-    getChain (chainId) {
+    copy(text) {
+      copy(text);
+      this.$message.success(this.$t('messages.copied', { text }));
+    },
+    getChain(chainId) {
       return this.$store.getters.getChain(chainId);
     },
-    getStepStatus (index) {
+    getStepStatus(index) {
       if (!this.steps) {
         return null;
       }
@@ -185,7 +196,7 @@ export default {
       }
       return 'waiting';
     },
-    async getNftTransaction () {
+    async getNftTransaction() {
       if (this.mergedHash && this.$attrs.visible) {
         try {
           await this.$store.dispatch('getNftTransaction', this.mergedHash);
@@ -214,11 +225,22 @@ export default {
 }
 
 .title {
-  padding: 80px 50px 40px;
-  font-weight: 600;
-  font-size: 40px;
+  padding: 40px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .close-btn {
+    width: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
-
 .scroll {
   flex: 1;
   padding: 40px 50px 40px 80px;
@@ -276,7 +298,7 @@ export default {
   }
 
   ::v-deep .el-progress-bar__inner {
-    background: #ffffff;
+    background: rgba(62, 199, 235, 1);
   }
 }
 
@@ -291,6 +313,10 @@ export default {
   color: #3ec7eb;
   font-size: 14px;
   text-decoration: underline;
+}
+
+.copy-icon {
+  margin-left: 5px;
 }
 
 .failed-title {

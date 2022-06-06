@@ -12,8 +12,11 @@
   },
   "dependencies": {
     "@cityofzion/neon-js": "^4.8.1",
-    "@iconify/vue2": "^1.1.1",
+    "@ethersproject/bytes": "^5.0.6",
+    "@iconify/vue2": "^1.2.1",
     "@ont-dev/ontology-dapi": "^0.5.7",
+    "@starcoin/starcoin": "^1.9.0",
+    "@starcoin/stc-util": "^0.4.1",
     "@walletconnect/web3-provider": "^1.4.1",
     "axios": "^0.20.0",
     "bignumber.js": "^9.0.0",
@@ -41,6 +44,7 @@
     "vue-mq": "^1.0.1",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0",
+    "walletlink": "^2.4.7",
     "watson-scss": "^1.0.6",
     "web3": "^1.2.11"
   },

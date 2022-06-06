@@ -1,8 +1,15 @@
 <template>
-  <CDrawer v-bind="$attrs" v-on="$listeners">
+  <CDialog v-bind="$attrs" v-on="$listeners">
     <div class="content">
       <div class="header">
-        <div class="title">{{ $t('home.selectTokenBasic.title') }}</div>
+        <div class="title">
+          {{ $t('home.selectTokenBasic.title') }}
+          <img
+            class="close-btn"
+            src="@/assets/svg/close.svg"
+            @click="$emit('update:visible', false)"
+          />
+        </div>
         <div class="input">
           <CInput
             v-model="keyword"
@@ -30,7 +37,7 @@
         <div
           v-for="tokenBasic in filteredTokenBasics"
           :key="tokenBasic.name"
-          class="token-basic"
+          :class="tokenBasicName === tokenBasic.name ? 'token-basic select' : 'token-basic'"
           @click="select(tokenBasic)"
         >
           <span class="token-basic-left">
@@ -41,7 +48,7 @@
         </div>
       </div>
     </div>
-  </CDrawer>
+  </CDialog>
 </template>
 
 <script>
@@ -175,6 +182,10 @@ export default {
     background: rgba(#000000, 0.3);
     opacity: 0.8;
   }
+}
+.select {
+  background: rgba(#000000, 0.3);
+  opacity: 0.8;
 }
 
 .token-basic-left {

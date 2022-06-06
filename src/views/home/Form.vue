@@ -18,7 +18,7 @@
         <img
           class="chain-icon"
           src="@/assets/png/gm.png"
-          style="width: 30px; height: 30px; margin-right: 10px; border-radius: 15px;"
+          style="width: 30px; height: 30px; margin-right: 10px; border-radius: 15px"
         />
         {{ $t('home.form.title') }}
       </div>
@@ -129,14 +129,71 @@
           }"
           v-slot="{ errors }"
         >
-          <div class="label">{{ $t('home.form.amount') }}</div>
-          <div class="input">
-            <CInput class="input-inner" v-model="amount" />
-            <CButton v-if="balance" class="use-max" @click="transferAll">
-              {{ $t('home.form.max') }}
-            </CButton>
+          <div class="field">
+            <div class="label">
+              <div class="label-left">
+                <div class="label-name">{{ $t('home.form.amount') }}</div>
+              </div>
+              <div class="label-right"></div>
+            </div>
+            <div class="field-wrapper">
+              <div class="input">
+                <CInput class="input-inner" v-model="amount" placeholder="0.00" />
+                <CButton v-if="balance" class="use-max" @click="transferAll">
+                  {{ $t('home.form.max') }}
+                </CButton>
+              </div>
+            </div>
+            <div class="input-error">{{ errors[0] }}</div>
           </div>
-          <div class="input-error">{{ errors[0] }}</div>
+          <div
+            v-if="
+              fee &&
+                fee.Balance < 500 &&
+                fee.SwapTokenHash === 'deaddeaddeaddeaddeaddeaddeaddeaddead0000'
+            "
+            class="fee"
+          >
+            <span class="label" style="color: #f56c6c; opacity: 1">{{
+              $t('home.form.warningMsg')
+            }}</span>
+          </div>
+          <div
+            v-if="
+              fee &&
+                fee.Balance < 500 &&
+                fee.SwapTokenHash === 'e552fb52a4f19e44ef5a967632dbc320b0820639'
+            "
+            class="fee"
+          >
+            <span class="label" style="color: #f56c6c; opacity: 1">{{
+              $t('home.form.warningMsg')
+            }}</span>
+          </div>
+          <!-- <div v-if="fee && selfPayFlag" class="fee">
+            <el-checkbox v-model="selfPayChecked"
+              >{{ $t('home.form.selfPay') }}
+              <CTooltip>
+                <img class="tooltip-icon" src="@/assets/svg/question.svg" />
+                <template #content>
+                  {{ $t('home.form.selfPay') }}
+                </template>
+              </CTooltip>
+            </el-checkbox>
+          </div> -->
+          <div v-if="balance" class="balance">
+            <span class="label">{{ $t('home.form.balance') }}:</span>
+            <CFlexSpan />
+            <span class="value"> {{ $formatNumber(balance) }} </span>
+            <img class="fee-icon" :src="tokenBasic.meta" />
+            <span class="fee-token">{{ fromToken.name }}</span>
+            <CTooltip v-if="fromToken.tokenBasicName === 'O3'">
+              <img class="tooltip-icon" src="@/assets/svg/question.svg" />
+              <template #content>
+                {{ $t('home.form.o3ToolTip') }}
+              </template>
+            </CTooltip>
+          </div>
           <div v-if="fee" class="fee">
             <span class="label text-base">{{ $t('home.form.maxamount') }}</span>
             <CTooltip>
@@ -150,17 +207,6 @@
             <img class="fee-icon" :src="tokenBasic.meta" />
             <span class="fee-token">{{ fromToken.name }}</span>
           </div>
-          <div v-if="balance" class="balance">
-            <span class="label">{{ $t('home.form.balance') }}</span>
-            <CFlexSpan />
-            <span class="value"> {{ $formatNumber(balance) }} {{ fromToken.name }} </span>
-            <CTooltip v-if="fromToken.tokenBasicName === 'O3'">
-              <img class="tooltip-icon" src="@/assets/svg/question.svg" />
-              <template #content>
-                {{ $t('home.form.o3ToolTip') }}
-              </template>
-            </CTooltip>
-          </div>
           <div v-if="fee" class="fee">
             <span class="label text-base">{{ $t('home.form.fee') }}</span>
             <CTooltip>
@@ -170,7 +216,7 @@
               </template>
             </CTooltip>
             <CFlexSpan />
-            <span class="fee-value">{{ $formatNumber(fee.TokenAmount) }}</span>
+            <span class="fee-value">{{ $formatNumber(selfPayChecked ? 0 : fee.TokenAmount) }}</span>
             <img class="fee-icon" :src="fromChain.nftFeeName ? fromChain.icon : tokenBasic.meta" />
             <span class="fee-token">{{
               fromChain.nftFeeName ? fromChain.nftFeeName : fromToken.name
@@ -189,35 +235,42 @@
           </div>
         </ValidationProvider>
       </div>
-
-      <CSubmitButton
-        v-if="fromChain && toChain && !(fromWallet && toWallet)"
-        @click="connectWalletVisible = true"
-      >
-        {{ $t('home.form.connectWallet') }}
-      </CSubmitButton>
-      <div v-else-if="!invalid && fromToken && toToken && needApproval" class="approve-wrapper">
-        <el-checkbox v-model="approveInfinityChecked"
-          >{{ $t('home.form.approveInfinity') }}
-          <CTooltip>
-            <img class="tooltip-icon" src="@/assets/svg/question.svg" />
-            <template #content>
-              {{ $t('home.form.approveInfinitytip') }}
-            </template>
-          </CTooltip>
-        </el-checkbox>
-        <CSubmitButton :loading="approving" @click="approve">
-          {{ approving ? $t('buttons.approving') : $t('buttons.approve') }}
+      <div v-if="healthFlag">
+        <CSubmitButton
+          v-if="fromChain && toChain && !(fromWallet && toWallet)"
+          @click="connectWalletVisible = true"
+        >
+          {{ $t('home.form.connectWallet') }}
+        </CSubmitButton>
+        <div v-else-if="!invalid && fromToken && toToken && needApproval" class="approve-wrapper">
+          <el-checkbox v-model="approveInfinityChecked"
+            >{{ $t('home.form.approveInfinity') }}
+            <CTooltip>
+              <img class="tooltip-icon" src="@/assets/svg/question.svg" />
+              <template #content>
+                {{ $t('home.form.approveInfinitytip') }}
+              </template>
+            </CTooltip>
+          </el-checkbox>
+          <CSubmitButton :loading="approving" @click="approve">
+            {{ approving ? $t('buttons.approving') : $t('buttons.approve') }}
+          </CSubmitButton>
+        </div>
+        <CSubmitButton
+          v-else
+          :disabled="invalid || !(fromToken && toToken)"
+          @click="next"
+          class="button-submit"
+        >
+          {{ $t('buttons.next') }}
         </CSubmitButton>
       </div>
-      <CSubmitButton
-        v-else
-        :disabled="invalid || !(fromToken && toToken)"
-        @click="next"
-        class="button-submit"
-      >
-        {{ $t('buttons.next') }}
-      </CSubmitButton>
+      <div v-else>
+        <div v-if="invalid || !valid">
+          Poly Bridge is suspended now due to network problems. We will resume services once the
+          network is stable. Sorry for the inconvenience.
+        </div>
+      </div>
     </div>
 
     <div class="history">
@@ -225,10 +278,13 @@
       <CLink class="link" :to="{ name: 'transactions' }">{{ $t('home.form.historyLink') }}</CLink>
     </div>
 
-    <div style="margin:2rem auto;">
-      <div style="display:flex;justify-content:center;">
+    <div style="margin: 2rem auto">
+      <div style="display: flex; justify-content: center">
         <span>Add GM to Metamask</span>
-        <img src="@/assets/svg/meta-mask.svg" style="margin-left:10px;height:20px;width:20px" />
+        <img
+          src="@/assets/svg/meta-mask.svg"
+          style="margin-left: 10px; height: 20px; width: 20px"
+        />
       </div>
       <div class="metamask-links">
         <CLink class="link" @click="addToMetamask('bsc')">GM BSC</CLink>
@@ -277,6 +333,7 @@
 </template>
 
 <script>
+import httpApi from '@/utils/httpApi';
 import BigNumber from 'bignumber.js';
 import copy from 'clipboard-copy';
 import { v4 as uuidv4 } from 'uuid';
@@ -284,7 +341,7 @@ import { DEFAULT_TOKEN_BASIC_NAME } from '@/utils/values';
 import { ChainId } from '@/utils/enums';
 import TransactionDetails from '@/views/transactions/Details';
 import { getWalletApi } from '@/utils/walletApi';
-import { Message } from 'element-ui';
+import { toStandardHex } from '@/utils/convertors';
 import SelectTokenBasic from './SelectTokenBasic';
 import SelectChain from './SelectChain';
 import ConnectWallet from './ConnectWallet';
@@ -316,7 +373,9 @@ export default {
       approving: false,
       confirmingData: null,
       approveInfinityChecked: false,
+      selfPayChecked: false,
       confirmUuid: uuidv4(),
+      healthFlag: true,
     };
   },
   computed: {
@@ -344,11 +403,15 @@ export default {
         } else {
           res = this.fee.Balance;
         }
-        if (
-          this.fromToken.hash === '0000000000000000000000000000000000000000' ||
-          this.fromToken.hash === 'deaddeaddeaddeaddeaddeaddeaddeaddead0000'
-        ) {
+        if (this.fromToken.name === 'C' && res > 2000000000000) {
+          res = 2000000000000;
+        }
+        if (this.fee.IsNative) {
           res = new BigNumber(res).minus(this.fee.TokenAmount).toNumber();
+          res = new BigNumber(res).minus(this.fee.NativeTokenAmount).toNumber();
+        }
+        if (res < 0) {
+          res = 0;
         }
       }
       return res;
@@ -409,6 +472,9 @@ export default {
     toChain() {
       return this.$store.getters.getChain(this.toChainId);
     },
+    selfPayFlag() {
+      return this.toChain.selfPay;
+    },
     toToken() {
       return (
         this.tokenBasic &&
@@ -436,7 +502,7 @@ export default {
       return this.getBalanceParams && this.$store.getters.getBalance(this.getBalanceParams);
     },
     getAllowanceParams() {
-      if (this.fromWallet && this.fromChain && this.fromToken) {
+      if (this.fromWallet && this.fromChain && this.fromToken && this.balance) {
         return {
           chainId: this.fromChainId,
           address: this.fromWallet.address,
@@ -465,6 +531,17 @@ export default {
       }
       return null;
     },
+    // getToFeeParams() {
+    //   if (this.toToken && this.fromChainId) {
+    //     return {
+    //       fromChainId: this.toChainId,
+    //       fromTokenHash: this.toToken.hash,
+    //       toChainId: this.fromChainId,
+    //       toTokenHash: this.toToken.hash,
+    //     };
+    //   }
+    //   return null;
+    // },
     getExpectTimeParams() {
       if (this.fromToken && this.toChainId) {
         return {
@@ -482,6 +559,17 @@ export default {
     fee() {
       return this.getFeeParams && this.$store.getters.getFee(this.getFeeParams);
     },
+    // tofee() {
+    //   return this.getToFeeParams && this.$store.getters.getFee(this.getToFeeParams);
+    // },
+    getChainsHealthParams() {
+      const arr = [];
+      arr.push(0);
+      if (this.fromChain) {
+        arr.push(this.fromChainId);
+      }
+      return arr;
+    },
   },
   watch: {
     async getBalanceParams(value) {
@@ -495,6 +583,11 @@ export default {
         this.$store.dispatch('getFee', value);
       }
     },
+    // getToFeeParams(value) {
+    //   if (value) {
+    //     this.$store.dispatch('getFee', value);
+    //   }
+    // },
     getExpectTimeParams(value) {
       if (value) {
         this.$store.dispatch('getExpectTime', value);
@@ -511,9 +604,19 @@ export default {
         this.$store.dispatch('getAllowance', value);
       }
     },
+    fromChain() {
+      this.selfPayChecked = false;
+    },
+    fromToken() {
+      this.selfPayChecked = false;
+    },
+    toChain() {
+      this.selfPayChecked = false;
+    },
   },
   created() {
     this.$store.dispatch('getTokenBasics');
+    this.getChainHealth();
     this.interval = setInterval(() => {
       if (
         this.getBalanceParams &&
@@ -530,9 +633,13 @@ export default {
         this.$store.dispatch('getAllowance', this.getAllowanceParams);
       }
     }, 5000);
+    this.interval1 = setInterval(() => {
+      this.getChainHealth();
+    }, 60000);
   },
   beforeDestroy() {
     clearInterval(this.interval);
+    clearInterval(this.interval1);
   },
   methods: {
     async addToMetamask(chain) {
@@ -572,6 +679,16 @@ export default {
       });
       return call;
     },
+    async getChainHealth() {
+      const chindIds = this.getChainsHealthParams;
+      const res = await httpApi.getHealthData({ chindIds });
+      const polyHealth = res.Result[0];
+      let tempFlag = polyHealth;
+      if (this.fromChainId) {
+        tempFlag = tempFlag && res.Result[this.fromChainId];
+      }
+      this.healthFlag = tempFlag;
+    },
     changeTokenBasicName(tokenBasicName) {
       this.tokenBasicName = tokenBasicName;
       this.fromChainId = null;
@@ -582,10 +699,12 @@ export default {
       this.fromChainId = chainId;
       this.toChainId = null;
       this.clearAmount();
+      this.getChainHealth();
     },
     changeToChainId(chainId) {
       this.toChainId = chainId;
       this.clearAmount();
+      this.getChainHealth();
     },
     async exchangeFromTo() {
       await this.$store.dispatch('getTokenMaps', {
@@ -600,6 +719,7 @@ export default {
         this.toChainId = null;
       }
       this.clearAmount();
+      this.getChainHealth();
     },
     copy(text) {
       copy(text);
@@ -612,18 +732,40 @@ export default {
       } else {
         res = this.fee.Balance;
       }
-      if (
-        this.fromToken.hash === '0000000000000000000000000000000000000000' ||
-        this.fromToken.hash === 'deaddeaddeaddeaddeaddeaddeaddeaddead0000'
-      ) {
+      if (this.fee.IsNative) {
         res = new BigNumber(res).minus(this.fee.TokenAmount).toNumber();
+        res = new BigNumber(res).minus(this.fee.NativeTokenAmount).toNumber();
+      }
+      if (res < 0) {
+        this.$message.error(this.$t('errors.wallet.INSUFFICIENT_FUNDS'));
+        res = 0;
       }
       this.amount = res;
       this.$nextTick(() => this.$refs.amountValidation.validate());
     },
+    async getWrapperCheck() {
+      let flag = false;
+      const chindId = this.fromChainId;
+      const res = await httpApi.getWrapperCheck({ chindId });
+      const arr = [];
+      for (let i = 0; i < res.Wrapper.length; i += 1) {
+        arr.push(toStandardHex(res.Wrapper[i]));
+      }
+      const index = arr.indexOf(this.fromChain.lockContractHash);
+      if (index > -1) {
+        flag = true;
+      }
+      return flag;
+    },
     async approve() {
       await this.$store.dispatch('ensureChainWalletReady', this.fromChainId);
       // const InfinityAmount = 9999999999999
+      const flag = await this.getWrapperCheck();
+      if (!flag) {
+        this.$message.error('wrapper contract error');
+        this.packing = false;
+        return;
+      }
       try {
         this.approving = true;
         const walletApi = await getWalletApi(this.fromWallet.name);
@@ -655,7 +797,29 @@ export default {
         this.approving = false;
       }
     },
-    next() {
+    async finalCheck() {
+      // Starcoin needs to check is_accept_token first
+      if (this.toWallet.name === 'StarMask') {
+        const walletApi = await getWalletApi(this.toWallet.name);
+        const isAcceptToken = await walletApi.isAcceptToken({
+          chainId: this.toChainId,
+          address: this.toWallet.address,
+          tokenHash: this.toToken.hash,
+        });
+        if (!isAcceptToken) {
+          this.$message.error(
+            `${this.$t('errors.wallet.TOKEN_IS_NOT_ACCEPT')}: ${this.toToken.hash}`,
+          );
+          return false;
+        }
+      }
+      return true;
+    },
+    async next() {
+      const finalCheck = await this.finalCheck();
+      if (!finalCheck) {
+        return;
+      }
       this.confirmingData = {
         fromAddress: this.fromWallet.address,
         toAddress: this.toWallet.address,
@@ -664,7 +828,7 @@ export default {
         fromTokenHash: this.fromToken.hash,
         toTokenHash: this.toToken.hash,
         amount: this.amount,
-        fee: this.fee.TokenAmount,
+        fee: this.selfPayChecked ? 0 : this.fee.TokenAmount,
       };
       this.confirmVisible = true;
     },
@@ -798,12 +962,18 @@ export default {
 
 .fields-row {
   display: flex;
-  @include child-margin-h(18px);
+  flex-direction: row;
+  justify-content: space-between;
+  @include child-margin-h(10px);
 }
 
+.fields-row .field {
+  width: 300px;
+  flex: inherit;
+}
 .field {
   flex: 1;
-  @include child-margin-v(10px);
+  @include child-margin-v(15px);
 }
 
 .label {
@@ -812,7 +982,6 @@ export default {
   font-size: 12px;
   color: var(--color-primary);
 }
-
 .value {
   font-size: 10px;
 }
@@ -872,14 +1041,21 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 10px;
 }
-
+.address > .c-button {
+  display: flex;
+}
 .address-value {
-  font-size: 12px;
+  font-size: 14px;
+  margin-right: 10px;
 }
 
 .chevron-down {
   align-self: flex-end;
+}
+.chevron-right {
+  margin-left: 10px;
 }
 
 .input {
@@ -909,6 +1085,27 @@ export default {
   font-size: 12px;
 }
 
+.exchange {
+  margin-top: 34px;
+}
+.exchange-icon {
+  height: 15px;
+}
+
+.balance > .label {
+  font-size: 14px;
+}
+.balance > .value {
+  font-size: 14px;
+}
+.fee > .label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.3);
+}
+.fee > .value {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 1);
+}
 .balance,
 .fee {
   display: flex;
@@ -957,6 +1154,26 @@ export default {
   }
   .chevron-down {
     margin-top: -12px;
+  }
+
+  .fields-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .fields-row > .field {
+    width: 100%;
+  }
+  .exchange-icon {
+    transform: rotate(90deg);
+  }
+  .header {
+    padding-right: 10px;
+  }
+  .footer {
+    box-sizing: content-box;
+  }
+  .form > .card {
+    padding: 20px 10px;
   }
 }
 .exchange-arrow {

@@ -7,13 +7,15 @@ import { formatEnum } from '@/utils/formatters';
 
 const APIS = {
   [WalletName.MetaMask]: () => import('./metaMask'),
+  [WalletName.CoinBase]: () => import('./coinBase'),
   [WalletName.Math]: () => import('./math'),
   [WalletName.NeoLine]: () => import('./neoline'),
   [WalletName.NeoLineN3]: () => import('./neolineN3'),
   [WalletName.O3]: () => import('./o3'),
-  // [WalletName.Binance]: () => import('./binance'),
+  [WalletName.Binance]: () => import('./binance'),
   [WalletName.Cyano]: () => import('./cyano'),
   [WalletName.WalletConnect]: () => import('./walletConnect'),
+  [WalletName.StarMask]: () => import('./starMask'),
 };
 
 export async function getWalletApi(walletName) {
