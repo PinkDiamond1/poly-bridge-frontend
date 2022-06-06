@@ -6,5 +6,8 @@
   "vetur.completion.autoImport": false,
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
   }
 }

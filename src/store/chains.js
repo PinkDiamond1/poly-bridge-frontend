@@ -1,10 +1,21 @@
 import Vue from 'vue';
-import { toStandardHex, objectToBase64, base64ToObject } from '@/utils/convertors';
+import {
+  reverseHex,
+  integerToHex,
+  toStandardHex,
+  objectToBase64,
+  base64ToObject,
+} from '@/utils/convertors';
+import { ChainId, EthNetworkChainIdMaps } from '@/utils/enums';
 import { WalletError } from '@/utils/errors';
 import { formatEnum } from '@/utils/formatters';
 import { CHAINS } from '@/utils/values';
+import { TARGET_MAINNET } from '@/utils/env';
+import { getWalletApi } from '@/utils/walletApi';
 
 const CHAIN_SELECTED_WALLETS_KEY = 'CHAIN_SELECTED_WALLETS';
+
+const ETH_NETWORK_CHAIN_ID_MAPS = EthNetworkChainIdMaps;
 
 export default {
   state: {
@@ -54,6 +65,8 @@ export default {
       dispatch('saveChainSelectedWallets');
     },
     async ensureChainWalletReady({ getters }, chainId) {
+      const chain = getters.getChain(chainId);
+      console.log(chain);
       const wallet = getters.getChainConnectedWallet(chainId);
       if (!wallet) {
         throw new WalletError('Wallet is not connected.', {
@@ -63,7 +76,19 @@ export default {
           },
         });
       }
+      const walletApi = await getWalletApi(wallet.name);
       if (wallet.chainId !== chainId) {
+        const fromChainId = ETH_NETWORK_CHAIN_ID_MAPS[chainId];
+        const waitChainId = `0x${fromChainId.toString(16)}`;
+        try {
+          /* window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: waitChainId }],
+          }); */
+          walletApi.changeChain(waitChainId, chain);
+        } catch (switchError) {
+          console.log('chain', switchError);
+        }
         throw new WalletError('Wallet is not in correct network.', {
           code: WalletError.CODES.INCORRECT_NETWORK,
           detail: {

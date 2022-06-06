@@ -1,11 +1,8 @@
 <template>
   <CDialog v-bind="$attrs" v-on="$listeners">
     <div class="content">
-      <div
-        class="title"
-        style="vertical-align: middle; justify-content: space-between; display: flex"
-      >
-        {{ $t('home.selectChain.title') }}
+      <div class="title">
+        {{ $t('home.selectItem.title') }}
         <img
           class="close-btn"
           src="@/assets/svg/close.svg"
@@ -14,12 +11,12 @@
       </div>
       <CDivider />
       <div class="scroll">
-        <div v-for="chain in chains" :key="chain.id" class="chain" @click="select(chain)">
+        <div v-for="item in items" :key="item.TokenId" class="chain" @click="select(item)">
           <span class="chain-left">
-            <img class="chain-icon" :src="chain.icon" />
-            <span>{{ $formatEnum(chain.id, { type: 'chainName' }) }}</span>
+            <img class="item-img" :src="item.Image ? item.Image : unknown" />
+            <span>{{ item.AssetName }} {{ item.TokenId }}</span>
           </span>
-          <img v-if="chainId === chain.id" src="@/assets/svg/check.svg" />
+          <img v-if="itemId === item.TokenId" src="@/assets/svg/check.svg" />
         </div>
       </div>
     </div>
@@ -28,16 +25,21 @@
 
 <script>
 export default {
-  name: 'SelectChain',
+  name: 'SelectAsset',
   inheritAttrs: false,
   props: {
-    chainId: Number,
-    chains: Array,
+    itemId: String,
+    items: Array,
+  },
+  data() {
+    return {
+      unknown: require('@/assets/svg/unknown.svg'),
+    };
   },
   methods: {
-    select(chain) {
+    select(item) {
       this.$emit('update:visible', false);
-      this.$emit('update:chainId', chain.id);
+      this.$emit('update:item', item);
     },
   },
 };
@@ -47,22 +49,34 @@ export default {
 .content {
   display: flex;
   flex-direction: column;
+  padding: 40px;
   width: 500px;
   height: 100vh;
-  background: white;
-  background: var(--background-color-base);
-
+  background: #171f31;
   box-shadow: 0px 2px 18px 7px rgba(#000000, 0.1);
 }
 
 .title {
-  padding: 80px 50px 20px;
+  font-size: 24px;
+  line-height: 36px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .close-btn {
+    width: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 .scroll {
   flex: 1;
-  padding: 16px 10px;
+  padding: 16px 0px;
   overflow-y: auto;
   @include scroll-bar(rgba(#fff, 0.2), transparent);
 }
@@ -72,31 +86,39 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
-  padding: 0 40px;
+  max-height: 160px;
+  min-height: 56px;
+  box-sizing: border-box;
+  padding: 0 20px;
   transition: all 0.3s;
   @include child-margin-h(16px);
 
   &:hover {
     opacity: 0.8;
-    background: var(--background-color-base-hover);
+    background: rgba(#000000, 0.3);
   }
 }
 
 .chain-left {
   display: flex;
   align-items: center;
+  padding: 16px 0px;
   @include child-margin-h(8px);
 }
 
 .chain-icon {
   width: 24px;
 }
-</style>
-<style lang="scss" scoped>
+.item-img {
+  max-height: 120px;
+  max-width: 120px;
+}
+
 @media screen and (max-width: 900px) {
   .content {
     width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
   }
 }
 </style>

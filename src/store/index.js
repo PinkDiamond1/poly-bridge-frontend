@@ -10,6 +10,7 @@ import transactions from './transactions';
 import balances from './balances';
 import allowances from './allowances';
 import fees from './fees';
+import health from './health';
 import expecttime from './expecttime';
 import nftAssetsBasics from './nftAssetsBasics';
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     balances,
     allowances,
     fees,
+    health,
     expecttime,
     nftAssetsBasics,
   },

@@ -1,5 +1,5 @@
 <template>
-  <CDrawer
+  <CDialog
     v-bind="$attrs"
     :closeOnClickModal="!confirming"
     :closeOnPressEscape="!confirming"
@@ -7,7 +7,14 @@
   >
     <transition v-if="confirmingData" name="fade" mode="out-in">
       <div class="content">
-        <div class="title">{{ $t('home.confirm.title') }}</div>
+        <div class="title">
+          {{ $t('home.confirm.title') }}
+          <img
+            class="close-btn"
+            src="@/assets/svg/close.svg"
+            @click="$emit('update:visible', false)"
+          />
+        </div>
         <CDivider />
         <div v-if="!packing" class="scroll">
           <div class="fields">
@@ -103,14 +110,16 @@
         </div>
       </div>
     </transition>
-  </CDrawer>
+  </CDialog>
 </template>
 
 <script>
+import httpApi from '@/utils/httpApi';
 import BigNumber from 'bignumber.js';
 import delay from 'delay';
 import { SingleTransactionStatus } from '@/utils/enums';
 import { getWalletApi } from '@/utils/walletApi';
+import { toStandardHex } from '@/utils/convertors';
 
 export default {
   name: 'Confirm',
@@ -122,6 +131,7 @@ export default {
     return {
       confirming: false,
       packing: false,
+      confirmFlag: false,
     };
   },
   computed: {
@@ -192,9 +202,33 @@ export default {
     },
   },
   methods: {
+    async getWrapperCheck() {
+      let flag = false;
+      const chindId = this.confirmingData.fromChainId;
+      const res = await httpApi.getWrapperCheck({ chindId });
+      const arr = [];
+      for (let i = 0; i < res.Wrapper.length; i += 1) {
+        arr.push(toStandardHex(res.Wrapper[i]));
+      }
+      const index = arr.indexOf(this.fromChain.lockContractHash);
+      if (index > -1) {
+        flag = true;
+      }
+      return flag;
+    },
     async confirm() {
+      if (this.confirmFlag) {
+        return;
+      }
+      this.confirmFlag = true;
       await this.$store.dispatch('ensureChainWalletReady', this.confirmingData.fromChainId);
       console.log(this.confirmingData);
+      const flag = await this.getWrapperCheck();
+      if (!flag) {
+        this.$message.error('wrapper contract error');
+        this.packing = false;
+        return;
+      }
       try {
         this.confirming = true;
         const walletApi = await getWalletApi(this.fromWallet.name);
@@ -237,6 +271,7 @@ export default {
         this.$emit('packed');
         this.$emit('update:visible', false);
       } finally {
+        this.confirmFlag = false;
         this.confirming = false;
         this.packing = false;
       }
@@ -256,8 +291,21 @@ export default {
 }
 
 .title {
-  padding: 80px 50px 20px;
+  padding: 40px;
   font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .close-btn {
+    width: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 .scroll {
@@ -290,7 +338,8 @@ export default {
 
 .amount-value {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 32px;
+  line-height: 48px;
 }
 
 .token-basic-name {
@@ -305,7 +354,7 @@ export default {
 }
 
 .chain-icon {
-  width: 20px;
+  width: 30px;
 }
 
 .chain-name {
@@ -326,7 +375,8 @@ export default {
 
 .fee-value {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 23px;
 }
 
 .packing {

@@ -73,6 +73,36 @@ export default {
     });
     return result;
   },
+  async getManualTxData({ polyHash }) {
+    const result = await request({
+      method: 'post',
+      url: '/getmanualtxdata',
+      data: {
+        polyhash: polyHash,
+      },
+    });
+    return result;
+  },
+  async getHealthData({ chindIds }) {
+    const result = await request({
+      method: 'post',
+      url: '/chainhealth',
+      data: {
+        ChainIds: chindIds,
+      },
+    });
+    return result;
+  },
+  async getWrapperCheck({ chindId }) {
+    const result = await request({
+      method: 'post',
+      url: '/wrappercheck',
+      data: {
+        ChainId: chindId,
+      },
+    });
+    return result;
+  },
   async getExpectTime({ fromChainId, toChainId }) {
     const result = await request({
       method: 'post',
@@ -98,6 +128,7 @@ export default {
     return {
       items: transactions.map(mapTransactionToDo),
       pageCount: result.TotalPage,
+      total: result.TotalCount,
     };
   },
   async getTransaction({ hash }) {
@@ -200,6 +231,7 @@ export default {
     return {
       items: transactions.map(mapTransactionToDo),
       pageCount: result.data.TotalPage,
+      total: result.data.TotalCount,
     };
   },
   async getNftTransaction({ hash }) {

@@ -33,6 +33,18 @@
           <img class="chain-icon" :src="chain.icon" />
         </CButton>
       </div>
+      <!-- <div class="chains" v-if="$route.name == 'token'">
+        <CButton
+          v-for="chain in chains"
+          :key="chain.id"
+          class="chain"
+          :class="{ selected: chainIdWithDefault === chain.id }"
+          @click="chainId = chain.id"
+          @mouseover="chainId = chain.id"
+        >
+          <img class="chain-icon" :src="chain.icon" />
+        </CButton>
+      </div> -->
       <div class="chains" v-if="$route.name == 'nft'">
         <CButton
           v-for="chain in nftChains"
@@ -45,6 +57,18 @@
           <img class="chain-icon" :src="chain.icon" />
         </CButton>
       </div>
+      <!-- <div class="chains" v-if="$route.name == 'transactions'">
+        <CButton
+          v-for="chain in chains"
+          :key="chain.id"
+          class="chain"
+          :class="{ selected: chainIdWithDefault === chain.id }"
+          @click="chainId = chain.id"
+          @mouseover="chainId = chain.id"
+        >
+          <img class="chain-icon" :src="chain.icon" />
+        </CButton>
+      </div> -->
 
       <CDivider direction="vertical" />
 
@@ -98,7 +122,13 @@ export default {
   },
   computed: {
     chains() {
-      return this.$store.getters.chains.filter(chain => chain.id !== ChainId.Poly && chain.id >= 0);
+      const arr = this.$store.getters.chains.filter(
+        chain => chain.id !== ChainId.Poly && chain.id !== undefined,
+      );
+      const obj = arr[2];
+      arr.splice(2, 1);
+      arr.push(obj);
+      return arr;
     },
     nftChains() {
       return this.$store.getters.chains.filter(

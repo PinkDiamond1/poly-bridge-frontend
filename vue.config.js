@@ -3,6 +3,7 @@ const WebpackCdnPlugin = require('webpack-cdn-plugin');
 const IN_PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
+  devServer: { https: false },
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
   chainWebpack: config => {
     config.devtool(!IN_PRODUCTION ? 'source-map' : false);

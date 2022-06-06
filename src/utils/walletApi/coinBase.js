@@ -1,3 +1,4 @@
+import WalletLink from 'walletlink';
 import Web3 from 'web3';
 import store from '@/store';
 import { getChainApi } from '@/utils/chainApi';
@@ -19,7 +20,23 @@ import { WalletError } from '@/utils/errors';
 import { TARGET_MAINNET } from '@/utils/env';
 import { tryToConvertAddressToHex } from '.';
 
-const META_MASK_CONNECTED_KEY = 'META_MASK_CONNECTED';
+const APP_NAME = 'Poly Bridge';
+const APP_LOGO_URL = 'https://bridge.poly.network/img/logo.2e569620.svg';
+const DEFAULT_ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161';
+const DEFAULT_CHAIN_ID = 1;
+// Initialize WalletLink
+export const walletLink = new WalletLink({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: false,
+});
+// Initialize a Web3 Provider object
+export const ethereum = walletLink.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID);
+
+// Initialize a Web3 object
+// export const web3 = new Web3(ethereum)
+
+const COINBASE_CONNECTED_KEY = 'COINBASE_CONNECTED';
 const NFT_FEE_TOKEN_HASH = '0x0000000000000000000000000000000000000000';
 const PLT_NFT_FEE_TOKEN_HASH = '0x0000000000000000000000000000000000000103';
 
@@ -59,13 +76,14 @@ function convertWalletError(error) {
 }
 
 async function queryState() {
-  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+  const accounts = await ethereum.request({ method: 'eth_accounts' });
+  console.log('get accounts from wallet', accounts);
   const address = accounts[0] || null;
-  const addressHex = await tryToConvertAddressToHex(WalletName.MetaMask, address);
+  const addressHex = await tryToConvertAddressToHex(WalletName.CoinBase, address);
   const checksumAddress = address && web3.utils.toChecksumAddress(address);
-  const network = await window.ethereum.request({ method: 'eth_chainId' });
+  const network = await ethereum.request({ method: 'eth_chainId' });
   store.dispatch('updateWallet', {
-    name: WalletName.MetaMask,
+    name: WalletName.CoinBase,
     address: checksumAddress,
     addressHex,
     connected: !!checksumAddress,
@@ -75,79 +93,59 @@ async function queryState() {
 
 async function init() {
   try {
-    if (!window.ethereum) {
+    if (!ethereum) {
       return;
     }
-    web3 = new Web3(window.ethereum);
-    store.dispatch('updateWallet', { name: WalletName.MetaMask, installed: true });
+    web3 = new Web3(ethereum);
+    store.dispatch('updateWallet', { name: WalletName.CoinBase, installed: true });
 
-    if (sessionStorage.getItem(META_MASK_CONNECTED_KEY) === 'true') {
+    if (sessionStorage.getItem(COINBASE_CONNECTED_KEY) === 'true') {
       await queryState();
     }
 
-    window.ethereum.on('accountsChanged', async accounts => {
+    ethereum.on('accountsChanged', async accounts => {
       const address = accounts[0] || null;
-      const addressHex = await tryToConvertAddressToHex(WalletName.MetaMask, address);
+      const addressHex = await tryToConvertAddressToHex(WalletName.CoinBase, address);
       const checksumAddress = address && web3.utils.toChecksumAddress(address);
       store.dispatch('updateWallet', {
-        name: WalletName.MetaMask,
+        name: WalletName.CoinBase,
         address: checksumAddress,
         addressHex,
         connected: !!checksumAddress,
       });
     });
 
-    window.ethereum.on('chainChanged', network => {
+    ethereum.on('chainChanged', network => {
       store.dispatch('updateWallet', {
-        name: WalletName.MetaMask,
+        name: WalletName.CoinBase,
         chainId: NETWORK_CHAIN_ID_MAPS[Number(network)],
       });
     });
   } finally {
-    store.getters.getWallet(WalletName.MetaMask).deferred.resolve();
+    store.getters.getWallet(WalletName.CoinBase).deferred.resolve();
   }
 }
 
 async function connect() {
   try {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    console.log('get connect to wallet', ethereum);
+    console.log('get connect to wallet', web3);
+    // await ethereum.request({ method: 'eth_requestAccounts' });
+    await ethereum.enable();
     await queryState();
-    sessionStorage.setItem(META_MASK_CONNECTED_KEY, 'true');
+    sessionStorage.setItem(COINBASE_CONNECTED_KEY, 'true');
   } catch (error) {
     throw convertWalletError(error);
   }
 }
 
-async function changeChain(waitChainId, chaindata) {
+async function changeChain(waitChainId) {
   try {
-    await window.ethereum.request({
+    await ethereum.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: waitChainId }],
     });
   } catch (error) {
-    // console.log('wallet', error);
-    // if (error.code === 4902) {
-    //   try {
-    //     await window.ethereum.request({
-    //       method: 'wallet_addEthereumChain',
-    //       params: [
-    //         {
-    //           chainId: waitChainId,
-    //           chainName: chaindata.name,
-    //           rpcUrls: [chaindata.rpcUrl],
-    //           blockExplorerUrls: [chaindata.chainExplorerUrl],
-    //           nativeCurrency: {
-    //             name: chaindata.symbol,
-    //             symbol: chaindata.symbol, // 2-6 characters long
-    //             decimals: 18,
-    //           },
-    //         },
-    //       ],
-    //     });
-    //   } catch (addError) {
-    //     throw convertWalletError(addError);
-    //   }
-    // }
     throw convertWalletError(error);
   }
 }
@@ -190,6 +188,7 @@ async function getAllowance({ chainId, address, tokenHash, spender }) {
     }
     const tokenContract = new web3.eth.Contract(require('@/assets/json/eth-erc20.json'), tokenHash);
     const result = await tokenContract.methods.allowance(address, `0x${spender}`).call();
+    console.log(integerToDecimal(result, tokenBasic.decimals));
     return integerToDecimal(result, tokenBasic.decimals);
   } catch (error) {
     throw convertWalletError(error);
@@ -274,25 +273,25 @@ async function getNFTApproved({ fromChainId, toChainId, tokenHash, id }) {
 async function sendSelfPayTx({ data, toAddress, toChainId }) {
   try {
     const txdata = data;
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const accounts = await ethereum.request({ method: 'eth_accounts' });
     const address = accounts[0] || null;
     const toEthChainID = ETH_NETWORK_CHAIN_ID_MAPS[toChainId];
     const transactionParameters = {
-      nonce: '0x00', // ignored by MetaMask
-      // gasPrice: `0x${reverseHex(integerToHex(1000000))}`, // customizable by user during MetaMask confirmation.
-      // gas: `0x${reverseHex(integerToHex(400000))}`, // customizable by user during MetaMask confirmation.
+      nonce: '0x00', // ignored by CoinBase
+      // gasPrice: `0x${reverseHex(integerToHex(1000000))}`, // customizable by user during CoinBase confirmation.
+      // gas: `0x${reverseHex(integerToHex(400000))}`, // customizable by user during CoinBase confirmation.
       to: toAddress, // Required except during contract publications.
       from: address, // must match user's active address.
       value: '0x00', // Only required to send ether to the recipient from the initiating external account.
       data: txdata, // Optional, but used for defining smart contract creation and interaction.
-      chainId: `0x${reverseHex(integerToHex(toEthChainID))}`, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      chainId: `0x${reverseHex(integerToHex(toEthChainID))}`, // Used to prevent transaction reuse across blockchains. Auto-filled by CoinBase.
     };
 
-    const result = await window.ethereum.request({
+    const txHash = await ethereum.request({
       method: 'eth_sendTransaction',
       params: [transactionParameters],
     });
-    return toStandardHex(result);
+    return txHash;
   } catch (error) {
     throw convertWalletError(error);
   }
@@ -329,7 +328,6 @@ async function lock({
         .lock(`0x${fromTokenHash}`, toChainId, `0x${toAddressHex}`, amountInt, feeInt, 0)
         .send({
           from: fromAddress,
-          gas: fromChainId === 24 ? 2000000 : null,
           value:
             fromTokenHash === '0000000000000000000000000000000000000000' ? amountInt : nativefeeInt,
         }),
@@ -357,6 +355,9 @@ async function nftLock({ fromChainId, fromAddress, fromTokenHash, toChainId, toA
     const feeInt = decimalToInteger(fee, 18);
     const feeTokenHash =
       fromChainId !== 107 && fromChainId !== 8 ? NFT_FEE_TOKEN_HASH : PLT_NFT_FEE_TOKEN_HASH;
+
+    console.log(feeTokenHash);
+    console.log(feeTokenHash === NFT_FEE_TOKEN_HASH ? feeInt : 0);
     const result = await confirmLater(
       lockContract.methods
         .lock(

@@ -1,10 +1,8 @@
 <template>
   <Page class="nft">
-    <img class="top-decoration"
-         src="@/assets/svg/poly-bg.svg" />
+    <img class="top-decoration" src="@/assets/svg/poly-bg.svg" />
     <div class="bottom-decoration-wrapper">
-      <img class="bottom-decoration"
-           src="@/assets/svg/poly-bg.svg" />
+      <img class="bottom-decoration" src="@/assets/svg/poly-bg.svg" />
     </div>
     <div class="content">
       <Form />
@@ -75,6 +73,25 @@ export default {
   ::v-deep > em {
     font-style: normal;
     color: #3ec7eb;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 900px) {
+  .content {
+    margin-top: 75px;
+    @include child-margin-h(0);
+  }
+  .nft {
+    min-width: 50vw;
+    width: 100vw;
+  }
+  .top-decoration {
+    display: none;
+  }
+  .slogan {
+    display: none;
   }
 }
 </style>
