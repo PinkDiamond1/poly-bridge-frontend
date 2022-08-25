@@ -262,6 +262,7 @@ export default {
 
 .chain-icon {
   width: 24px;
+  object-fit: contain;
 }
 
 .hash {
