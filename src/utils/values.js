@@ -95,7 +95,7 @@ export const WALLETS = [
   },
   {
     name: WalletName.NeoLineN3,
-    supportedChainIds: [ChainId.N3],
+    supportedChainIds: [ChainId.N3, ChainId.N3T5],
     icon: require('@/assets/svg/neoline.svg'),
     downloadUrl:
       'https://chrome.google.com/webstore/detail/neoline/cphhlgmgameodnhkjdmkpanlelnlohao',
@@ -162,7 +162,7 @@ export const CHAINS = [
     lockContractHash: TARGET_MAINNET
       ? '0x81910675DbaF69deE0fD77570BFD07f8E436386A'
       : //   : '0xe498fb7D00468a67A79dE5D4Ca264d3350165280',
-        '0xc58eF4F49BBbd6bdfFeEA8159481C1AFAfBCFD0e',
+      '0xc58eF4F49BBbd6bdfFeEA8159481C1AFAfBCFD0e',
     nftLockContractHash: TARGET_MAINNET
       ? '0xe5204d62361A353C665668C858Ea213070CA159c'
       : '0x940300dc3Fc26e3A330a300be766184C0b5Fe019',
@@ -289,7 +289,7 @@ export const CHAINS = [
     lockContractHash: TARGET_MAINNET
       ? '0xbc3B4E7517c06019F30Bf2f707eD2770b85f9928'
       : //  : '0xCed7997C3e807Fcdc5ac18fFC0B8af93a15a9eE5',
-        '0xfb717F8d478156fE7428369075bB2FaB4Ea659B5',
+      '0xfb717F8d478156fE7428369075bB2FaB4Ea659B5',
     nftLockContractHash: TARGET_MAINNET
       ? '0xe2bD9dD8FAF5C4C2087Ab82eC7E63F619CcAa152'
       : '0x61E289D43C1FEA7598786557A2F309979ad144D3',
@@ -319,7 +319,7 @@ export const CHAINS = [
     lockContractHash: TARGET_MAINNET
       ? '0x1B0C55be400e2a7D924032B257Fbc75Bbfd256E7'
       : //  : '0x3c92F1E31aACA43Eb4fF8aE498C7E85618680F45',
-        '0xCC8407Ee04AaC2AdC0E6A55E7E97176C701146cd',
+      '0xCC8407Ee04AaC2AdC0E6A55E7E97176C701146cd',
     nftLockContractHash: TARGET_MAINNET
       ? '0xe2bD9dD8FAF5C4C2087Ab82eC7E63F619CcAa152'
       : '0xbaBaAF5CF7f63437755aAAFE7a4106463c5cD540',
@@ -523,7 +523,7 @@ export const CHAINS = [
     lockContractHash: TARGET_MAINNET
       ? '0xbd4a08577476A521C41a21EF3f00b045b74175d5'
       : //  : '0x5598226aD2E8991deEFD03203739C87BdF6e6D03',
-        '0xbAa40bBd7888f79614057d82bdcE88dF2D23bf55',
+      '0xbAa40bBd7888f79614057d82bdcE88dF2D23bf55',
     dst_ccm: TARGET_MAINNET
       ? '0x6CE66Cf89A17B5C22e757cca01beAD901fC8C7f2'
       : '0x60Ab3e4a841c8a2E4148aAfc74C0E63c4B54d109',
@@ -827,6 +827,20 @@ export const CHAINS = [
   //     : 'https://explorer.ont.io/testnet/',
   //   selfPay: true,
   // },
+  {
+    id: ChainId.N3T5,
+    nativeFee: false,
+    icon: require('@/assets/svg/neo.svg'),
+    explorerUrl: TARGET_MAINNET
+      ? 'https://neo3.neotube.io/transaction/{txHash}'
+      : 'https://n3t5.neotube.io/transaction/{txHash}',
+    lockContractHash: TARGET_MAINNET
+      ? 'f8328398c4c8e77b6c5843f5e404be0170d5012e'
+      : 'c3ac0347e9c4f65b7fff383201a1551da4301e09',
+    nftFeeContractHash: 'd2a4cff31913016155e38e474a2c06d08be276cf',
+    nftFeeName: 'GAS',
+    selfPay: false,
+  },
 ];
 
 export const UNKNOWN_ICON = require('@/assets/svg/unknown.svg');

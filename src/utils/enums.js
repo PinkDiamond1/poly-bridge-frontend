@@ -19,6 +19,7 @@ export const ChainId = {
   // Ont: 3,
   // Neo: TARGET_MAINNET ? 4 : 5,
   N3: TARGET_MAINNET ? 14 : 88,
+  N3T5: TARGET_MAINNET ? 888 : 888,
   // xDai: TARGET_MAINNET ? 20 : 206,
   // HSC: TARGET_MAINNET ? 28 : 603,
   // Harmony: TARGET_MAINNET ? 27 : 800,
