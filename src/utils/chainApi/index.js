@@ -5,7 +5,6 @@ const APIS = {
   [ChainId.Eth]: () => import('./eth'),
   [ChainId.Neo]: () => import('./neo'),
   [ChainId.N3]: () => import('./n3'),
-  [ChainId.N3T5]: () => import('./n3'),
   [ChainId.Bsc]: () => import('./eth'),
   [ChainId.Heco]: () => import('./eth'),
   [ChainId.Ont]: () => import('./ont'),
