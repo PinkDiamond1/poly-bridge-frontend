@@ -189,7 +189,7 @@ export const CHAINS = [
       : 'https://neo3.testnet.neotube.io/transaction/{txHash}',
     lockContractHash: TARGET_MAINNET
       ? 'f8328398c4c8e77b6c5843f5e404be0170d5012e'
-      : 'd63810ca692b43e0ed35bfa40e653d05b2cb3585',
+      : 'c3ac0347e9c4f65b7fff383201a1551da4301e09',
     nftFeeContractHash: 'd2a4cff31913016155e38e474a2c06d08be276cf',
     nftFeeName: 'GAS',
     selfPay: false,
