@@ -145,15 +145,15 @@ export default {
   created() {
     const isMainnet = true;
     const baseUrl = isMainnet
-      ? 'https://api.ghostmarket.io/api/v1'
-      : 'https://api-testnet.ghostmarket.io/api/v1';
+      ? 'https://api.ghostmarket.io/api/v2'
+      : 'https://api-testnet.ghostmarket.io/api/v2';
     new GMSupplyApi({ baseUrl }).getGMSupply().then((res) => {
-      const circulating = res.all_circulating_supply === 0 ? 1 : res.all_circulating_supply;
-      this.totalSupplyCount = number(res.all_total_supply, 0);
-      this.availableSupplyCount = number(res.all_circulating_supply, 0);
+      const circulating = res.allCirculatingSupply === 0 ? 1 : res.allCirculatingSupply;
+      this.totalSupplyCount = number(res.allTotalSupply, 0);
+      this.availableSupplyCount = number(res.allCirculatingSupply, 0);
       this.supplyTokens.forEach((token) => {
         try {
-          const tc = res[`${token.slug}_circulating_supply`];
+          const tc = res[`${token.slug}CirculatingSupply`];
           token.availableAmount = number(tc, 0);
           token.availableNumber = tc;
           token.percentage = `${((100 * tc) / circulating).toFixed(2)}%`;

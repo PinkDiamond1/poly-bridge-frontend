@@ -6,20 +6,20 @@ export interface IGMSupplyApiOptions {
 }
 
 export interface IGetGMSupplyResult {
-    avalanche_circulating_supply: number
-    avalanche_total_supply: number
-    bsc_circulating_supply: number 
-    bsc_total_supply: number
-    ethereum_circulating_supply: number
-    ethereum_total_supply: number
-    n3_circulating_supply: number
-    n3_total_supply: number
-    phantasma_circulating_supply: number
-    phantasma_total_supply: number
-    polygon_circulating_supply: number
-    polygon_total_supply: number
-    all_circulating_supply: number
-    all_total_supply: number
+    avalancheCirculatingSupply: number
+    avalancheTotalSupply: number
+    bscCirculatingSupply: number 
+    bscTotalSupply: number
+    ethereumCirculatingSupply: number
+    ethereumTotalSupply: number
+    n3CirculatingSupply: number
+    n3TotalSupply: number
+    phantasmaCirculatingSupply: number
+    phantasmaTotalSupply: number
+    polygonCirculatingSupply: number
+    polygonTotalSupply: number
+    allCirculatingSupply: number
+    allTotalSupply: number
 } */
 
 export class GMSupplyApi {
@@ -28,7 +28,7 @@ export class GMSupplyApi {
   }
 
   async getGMSupply() {
-    const url = `${this.options.baseUrl}/gmsupply`;
+    const url = `${this.options.baseUrl}/gmSupply`;
     const res = await axios.get(url, { params: {} });
     return res.data;
   }
